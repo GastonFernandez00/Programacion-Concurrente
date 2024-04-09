@@ -1,13 +1,16 @@
 import java.util.Scanner;
 
 public class Asiento  {
+
+// ------------------------------- VARIABLES ---------------------------------------------
+    
+    // Definiciones
     private static final Integer LIBRE = 0;
     private static final Integer RESERVADO = 1;
     private static final Integer VERIFICADO = 2;
     private static final Integer CANCELADO = -1;
 
-// ------------------------------- VARIABLES ---------------------------------------------
-    // Posición del Asiento
+    // Posicion del Asiento
     private String asiento = "-1";
 
     /*  Los estados del asiento
@@ -17,13 +20,16 @@ public class Asiento  {
      *  -1 == Cancelado  */
     private Integer estado = -999;
 // ------------------------------- FUNCIONES ---------------------------------------------
+    
+    // Constructor que crea un asiento vacio
     private Asiento(){}
     
-    /*  Al crearse el asiento, se le debe asignar la posición del 
-     * la matriz, para que tome ese valor
-     */
+    /* Constructor donde se le asigna una posicion la momento de crearse.
+     * El estado siempre es "LIBRE" */
     public Asiento(String posicion){asiento = posicion;estado = LIBRE;}
 
+    /* Constructor donde se le asigna una posicion y el estado
+     al momento de crearse.*/
     public Asiento(String posicion,Integer e){asiento = posicion;estado = e;}
 
     // Imprime los estados posibles de un asiento
@@ -97,12 +103,5 @@ public class Asiento  {
     //     a.cambiarEstado(CANCELADO);
     //     System.out.println(a.getEstado()+"\n");
         
-        
-    
-
     // }
-
-
-
-
 }
