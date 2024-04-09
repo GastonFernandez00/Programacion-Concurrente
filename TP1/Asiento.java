@@ -77,7 +77,7 @@ public class Asiento  {
             else{ myObj = null; return; }
         }
 
-        if(this.estado == E){ 
+        else if(this.estado == E){ 
             System.out.println("\nEl asiento "+asiento+" ya se encuentra '"+estadosToString(estado)+"'");
             return;
         }
