@@ -5,12 +5,12 @@ public class Avion {
     private Integer columnas = 6;
 
     // Conjunto de Asientos
-    private Asiento asientos[][] = new Asiento[filas][columnas];
+    private Asiento asientos[][];
     
     public Avion(Integer filas, Integer columnas){
         this.filas = filas;
         this.columnas = columnas;
-        
+        asientos = new Asiento[filas][columnas];
         for(Integer i = 0; i < filas; i++)
         for(Integer j = 0; j < columnas; j++){
             Asiento a = new Asiento(i.toString()+(char)(j+65));
@@ -19,6 +19,7 @@ public class Avion {
     }
 
     public Avion(){
+        asientos = new Asiento[filas][columnas];
         for(Integer i = 0; i < 25; i++)
         for(Integer j = 0; j < 6; j++){
             Asiento a = new Asiento(i.toString()+(char)(j+65));
