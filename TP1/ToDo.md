@@ -8,7 +8,8 @@
 2.  
 #### Clase Asiento
 ---
-
+1. Posiblemente haga falta otro constructor, que tenga en cuenta un estado inicial diferente de LIBRE
+2. 
 # Problemas <>
 ---
 #### Clase Main

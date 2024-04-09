@@ -6,7 +6,7 @@ public class Asiento  {
     private static final Integer VERIFICADO = 2;
     private static final Integer CANCELADO = -1;
 
-    
+// ------------------------------- VARIABLES ---------------------------------------------
     // Posición del Asiento
     private String asiento = "-1";
 
@@ -16,7 +16,7 @@ public class Asiento  {
      *  2 == Verificado
      *  -1 == Cancelado  */
     private Integer estado = -999;
-
+// ------------------------------- FUNCIONES ---------------------------------------------
     private Asiento(){}
     
     /*  Al crearse el asiento, se le debe asignar la posición del 
@@ -83,6 +83,7 @@ public class Asiento  {
     }
 
     public String getEstado(){return estadosToString(estado);}
+    public String getAsiento(){return asiento;}
 
     public static void main(String[] args) {
         System.out.println("\n\n\n--------------\n\n\n");
