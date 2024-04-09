@@ -24,8 +24,11 @@ public class Asiento  {
      */
     public Asiento(String posicion){asiento = posicion;estado = LIBRE;}
 
+    public Asiento(String posicion,Integer e){asiento = posicion;estado = e;}
+
     // Imprime los estados posibles de un asiento
-    private void estadosPosibles(){ System.out.println("LIBRE\nRESERVADO\nVERIFICADO\nCANCELADO\n"); }
+    private void estadosPosibles(){
+        System.out.println("LIBRE = 0\nRESERVADO = 1\nVERIFICADO = 2\nCANCELADO = -1\n"); }
 
     // Convierte el valor numerico de un estado, a su significado en String
     protected String estadosToString(Integer e){
@@ -68,7 +71,8 @@ public class Asiento  {
                          nuevoEstado != VERIFICADO && nuevoEstado != CANCELADO);
                 
                 myObj = null;
-                cambiarEstado(nuevoEstado);
+                // cambiarEstado(nuevoEstado);
+                this.estado = nuevoEstado;
             }
             else{ myObj = null; return; }
         }
@@ -85,18 +89,18 @@ public class Asiento  {
     public String getEstado(){return estadosToString(estado);}
     public String getAsiento(){return asiento;}
 
-    public static void main(String[] args) {
-        System.out.println("\n\n\n--------------\n\n\n");
-        Asiento a = new Asiento("XX");
-        System.out.println(a.getEstado()+"\n");
-        a.cambiarEstado(LIBRE);
-        a.cambiarEstado(CANCELADO);
-        System.out.println(a.getEstado()+"\n");
+    // public static void main(String[] args) {
+    //     System.out.println("\n\n\n--------------\n\n\n");
+    //     Asiento a = new Asiento("XX");
+    //     System.out.println(a.getEstado()+"\n");
+    //     a.cambiarEstado(LIBRE);
+    //     a.cambiarEstado(CANCELADO);
+    //     System.out.println(a.getEstado()+"\n");
         
         
     
 
-    }
+    // }
 
 
 

@@ -4,17 +4,15 @@
 ---
 #### Clase Avion
 ---
-1. Debe existir un método que convierta la posición de un asiento a un código tipo String y la pase al constructor del asiento
-2.  
 #### Clase Asiento
 ---
-1. Posiblemente haga falta otro constructor, que tenga en cuenta un estado inicial diferente de LIBRE
-2. 
+1. 
 # Problemas <>
 ---
 #### Clase Main
 ---
 #### Clase Avion
 ---
++ Al modificar el estado de un asiento, si el valor es erróneo y se pide reingresar, este nuevo valor no se computa
 #### Clase Asiento
 ---
