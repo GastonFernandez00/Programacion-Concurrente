@@ -2,11 +2,11 @@ public class Avion {
 
 // ------------------------------- VARIABLES ---------------------------------------------
 
-    // Definiciones
-    private static final Integer LIBRE = 0;
-    private static final Integer RESERVADO = 1;
-    private static final Integer VERIFICADO = 2;
-    private static final Integer CANCELADO = -1;
+    // // Definiciones
+    // private static final Integer LIBRE = 0;
+    // private static final Integer RESERVADO = 1;
+    // private static final Integer VERIFICADO = 2;
+    // private static final Integer CANCELADO = -1;
 
     // Tamaño de filas y columnas predefinido
     private Integer filas = 31;
@@ -78,7 +78,7 @@ public class Avion {
         System.out.println("\n\n\n\n\n");
         a.printAsientos();
         a.printEstadoAsientos();
-        a.cambiarEstado("30F",VERIFICADO);
+        a.cambiarEstado("30F",Asiento.VERIFICADO);
         a.cambiarEstado("30E",5);
         a.printEstadoAsientos();
   

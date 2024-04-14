@@ -5,10 +5,10 @@ public class Asiento  {
 // ------------------------------- VARIABLES ---------------------------------------------
     
     // Definiciones
-    private static final Integer LIBRE = 0;
-    private static final Integer RESERVADO = 1;
-    private static final Integer VERIFICADO = 2;
-    private static final Integer CANCELADO = -1;
+    public static final Integer LIBRE = 0;
+    public static final Integer RESERVADO = 1;
+    public static final Integer VERIFICADO = 2;
+    public static final Integer CANCELADO = -1;
 
     // Posicion del Asiento
     private String asiento = "-1";
