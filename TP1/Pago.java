@@ -21,18 +21,20 @@ public class Pago implements Runnable {
             //VER SI SACAR SYNCHRONIZED
             synchronized (pendientes.getPendientes()) {
                 if (!pendientes.getPendientes().isEmpty()) {
-                    Reservas reserva = obtenerReservaAleatoria(); //hacer esa funcion para obtener la reserva aleatoria
+                    Reservas reserva = obtenerReservaAleatoria(); 
                     if (verificarPago()) {
                         pendientes.getPendientes().remove(reserva); //elimino la reserva de pendientes
                         getConfirmadas().add(reserva); //agrego la reserva a la lista de confirmadas
                         reserva.setEstado(1); // 1: CONFIRMADO
+                        System.out.println(Thread.currentThread().getName() + " pago con exito el asiento Nº " + reserva.getPosAsiento());
+                        
                     } else {
 
                         getCanceladas().add(reserva);
                         pendientes.getPendientes().remove(reserva);
                         reserva.setEstado(2); // 1: CANCELADO
                         //ME FALTA DESCARTAR EL ASIENTO
-
+                        System.out.println(Thread.currentThread().getName() + " se descarta el asiento Nº " + reserva.getPosAsiento() + " por pago RECHAZADO");
                     }
                 }
             }
@@ -56,7 +58,6 @@ public class Pago implements Runnable {
 
     //Verifico el pago con una probabilidad del 90% que sea aprobado
     private boolean verificarPago() {
-       
         return new Random().nextInt(100) < 90;
     }
 
