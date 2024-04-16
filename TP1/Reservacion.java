@@ -28,24 +28,25 @@ public class Reservacion implements Runnable {
             Asiento asiento = asientos[fila][columna];
 
             // Verificar si el asiento está disponible
-            synchronized (asiento) {
-                if (asiento.getEstado() == "LIBRE") {
+            if (asiento.getEstado() == "LIBRE") {
                     // Marcar el asiento como reservado
                     asiento.cambiarEstado(Asiento.RESERVADO);
                     // Registrar la reserva pendiente
                     reserva.setEstado(Reservas.PENDIENTE);
                     reserva.setPosAsieto(asiento.getAsiento());
-                    pendientes.add(reserva);
+                    setPendientes(reserva);
                     System.out.println(Thread.currentThread().getName() + " reservó el asiento " + asiento.getAsiento());
                     break; // Salir del bucle una vez reservado el asiento
-                }
             }
+            
         }
+    }
+
+    public synchronized void setPendientes(Reservas reserva){
+        pendientes.add(reserva);
     }
 
     public List<Reservas> getPendientes(){
         return pendientes;
     }
 }
-
-
