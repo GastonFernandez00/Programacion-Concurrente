@@ -22,6 +22,7 @@ public class Pago implements Runnable {
     public void run() {
 
         while (!Thread.currentThread().isInterrupted()) {
+            
                 if (!pendientes.getPendientes().isEmpty()) {
                     Reservas reserva = obtenerReservaPendientesAleatoria(); //supuesto metodo de lu
                     if (verificarPago()) {
@@ -79,6 +80,11 @@ public class Pago implements Runnable {
             confirmadas.remove(r);
         }
       }
+      public boolean isEmptyConfirmadas(){
+        synchronized(keyConfirmadas){
+            return confirmadas.isEmpty();   
+        }
+      }
 
      //Metodos de la lista CANCELADAS
 
@@ -103,6 +109,13 @@ public class Pago implements Runnable {
         synchronized(keyCanceladas){
             canceladas.remove(r);
         }
-      }     
-}
+      }
+     public boolean isEmptyCanceladas(){
+        synchronized(keyCanceladas){
+            return canceladas.isEmpty();   
+        }
+      }
+  
 
+        
+}
