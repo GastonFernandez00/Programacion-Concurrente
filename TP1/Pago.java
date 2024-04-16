@@ -7,36 +7,40 @@ public class Pago implements Runnable {
     //Variables
     private List<Reservas> canceladas;
     private List<Reservas> confirmadas;
+    private final Object keyConfirmadas, keyCanceladas;
     Reservacion pendientes; 
+    Log log;
 
     public Pago() {
         canceladas = new ArrayList<>();
         confirmadas = new ArrayList<>();
+        keyConfirmadas=new Object();
+        keyCanceladas=new Object();
     }
 
     @Override
     public void run() {
 
         while (!Thread.currentThread().isInterrupted()) {
-            //VER SI SACAR SYNCHRONIZED
-            synchronized (pendientes.getPendientes()) {
                 if (!pendientes.getPendientes().isEmpty()) {
-                    Reservas reserva = obtenerReservaAleatoria(); 
+                    Reservas reserva = obtenerReservaPendientesAleatoria(); //supuesto metodo de lu
                     if (verificarPago()) {
                         pendientes.getPendientes().remove(reserva); //elimino la reserva de pendientes
-                        getConfirmadas().add(reserva); //agrego la reserva a la lista de confirmadas
+                        addConfirmadas(reserva); //agrego la reserva a la lista de confirmadas
                         reserva.setEstado(1); // 1: CONFIRMADO
                         System.out.println(Thread.currentThread().getName() + " pago con exito el asiento Nº " + reserva.getPosAsiento());
                         
                     } else {
 
-                        getCanceladas().add(reserva);
+                        addCanceladas(reserva);
                         pendientes.getPendientes().remove(reserva);
                         reserva.setEstado(2); // 1: CANCELADO
                         //ME FALTA DESCARTAR EL ASIENTO
                         System.out.println(Thread.currentThread().getName() + " se descarta el asiento Nº " + reserva.getPosAsiento() + " por pago RECHAZADO");
+                        log.registrarCancelacion();
                     }
                 }
+                
             }
 
             try {
@@ -44,29 +48,61 @@ public class Pago implements Runnable {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-        }
-    }
-    //Metodo para obtener una reserva aleatoria de la lista de Reservas pendientes
-    public Reservas obtenerReservaAleatoria() {
-        if (pendientes.getPendientes().isEmpty()) {
-            return null;
-        }
-        Random random = new Random();
-        int indice = random.nextInt(pendientes.getPendientes().size());
-        return pendientes.getPendientes().get(indice);
     }
 
-    //Verifico el pago con una probabilidad del 90% que sea aprobado
-    private boolean verificarPago() {
+       //Verifico el pago con una probabilidad del 90% que sea aprobado
+       private boolean verificarPago() {
+       
         return new Random().nextInt(100) < 90;
     }
 
-    public synchronized List<Reservas> getConfirmadas(){
-        return confirmadas;
-    }
+    //Metodos de la lista CONFIRMADOS
 
-    public synchronized List<Reservas> getCanceladas(){
-        return canceladas;
-    }
+    public Reservas obtenerReservaConfirmadaAleatoria() {
+      synchronized(keyConfirmadas){
+        if (confirmadas.isEmpty()) {
+            return null;
+        }
+        Random random = new Random();
+        int indiceConfirmadas = random.nextInt(confirmadas.size());
+        return confirmadas.get(indiceConfirmadas);
+      } 
         
+    }
+    public void addConfirmadas(Reservas r){
+        synchronized(keyConfirmadas){
+            confirmadas.add(r);
+        }
+      }
+    public void removeConfirmadas(Reservas r){
+        synchronized(keyConfirmadas){
+            confirmadas.remove(r);
+        }
+      }
+
+     //Metodos de la lista CANCELADAS
+
+    public Reservas obtenerReservaCanceladasAleatoria() {
+        synchronized(keyCanceladas){
+          if (canceladas.isEmpty()) {
+              return null;
+          }
+          Random random = new Random();
+          int indiceCanceladas = random.nextInt(canceladas.size());
+          return canceladas.get(indiceCanceladas);
+        } 
+          
+      }
+      
+    public void addCanceladas(Reservas r){
+        synchronized(keyCanceladas){
+            canceladas.add(r);
+        }
+      }
+    public void removeCanceladas(Reservas r){
+        synchronized(keyCanceladas){
+            canceladas.remove(r);
+        }
+      }     
 }
+
