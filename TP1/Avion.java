@@ -2,12 +2,6 @@ public class Avion {
 
 // ------------------------------- VARIABLES ---------------------------------------------
 
-    // // Definiciones
-    // private static final Integer LIBRE = 0;
-    // private static final Integer RESERVADO = 1;
-    // private static final Integer VERIFICADO = 2;
-    // private static final Integer CANCELADO = -1;
-
     // Tamaño de filas y columnas predefinido
     private Integer filas = 31;
     private Integer columnas = 6;
@@ -40,7 +34,7 @@ public class Avion {
     }
 
     // Imprime todos los asientos existentes
-    public void printAsientos(){
+    public synchronized void printAsientos(){
         System.out.println("\n\n");
         for(Integer i = 0; i < filas ; i++){
             for(Integer j = 0; j < columnas; j++){
@@ -52,7 +46,7 @@ public class Avion {
     }
 
     // Imprime en forma de lista, el estado de todos los asientos
-    public void printEstadoAsientos(){
+    public synchronized void printEstadoAsientos(){
         System.out.println("\n\n");
         for(Integer i = 0; i < filas ; i++) for(Integer j = 0; j < columnas; j++){
 
@@ -61,7 +55,7 @@ public class Avion {
     }
 
     // Cambia el estado particular de UN asiento. 
-    public void cambiarEstado(String a,Integer e){
+    public synchronized void cambiarEstado(String a,Integer e){
         for(Integer i = 0; i < filas ; i++) for(Integer j = 0; j < columnas; j++){
             if(asientos[i][j].getAsiento().equals(a)){
                 asientos[i][j].cambiarEstado(e);
@@ -78,7 +72,7 @@ public class Avion {
         System.out.println("\n\n\n\n\n");
         a.printAsientos();
         a.printEstadoAsientos();
-        a.cambiarEstado("30F",Asiento.VERIFICADO);
+        a.cambiarEstado("30F",Asiento.OCUPADO);
         a.cambiarEstado("30E",5);
         a.printEstadoAsientos();
   
