@@ -10,6 +10,7 @@ public class Reservas {
     private String posicion_asiento;
     private Integer estado;
     private boolean checked;
+    private Asiento asiento;
 
     public Reservas(){}
 
@@ -30,6 +31,10 @@ public class Reservas {
     */
     public void setEstado(Integer estado){
         this.estado = estado;
+    }
+
+    public void setEstadoAsiento(Integer E){
+        asiento.cambiarEstado(E);
     }
 
     public void setCheked(boolean cheked){

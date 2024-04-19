@@ -81,7 +81,7 @@ public class Main {
             avion.printEstadoAsientos();
 
 
-         // ver si esta bien
+         / ver BIEN QUE HAY QUE HACER
         int confirmadas = procesoReservacion.getPendientes().size();
         int verificadas = 10; //falta definir las 2 clases que  faltan
 

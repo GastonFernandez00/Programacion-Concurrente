@@ -23,20 +23,20 @@ public class Pago implements Runnable {
 
         while (!Thread.currentThread().isInterrupted()) {
             
-                if (!isEmptyPendientes()) {
-                    Reservas reserva = obtenerReservaPendientesAleatoria(); //Reserva aleatoria
+                if (!pendientes.isEmptyPendientes()) {
+                    Reservas reserva = obtenerReservaCanceladasAleatoria(); //Reserva aleatoria
                     if (verificarPago()) {
-                        removePendientes(reserva); //elimino la reserva de pendientes 
+                        pendientes.removePendientes(reserva); //elimino la reserva de pendientes 
                         addConfirmadas(reserva); //agrego la reserva a la lista de confirmadas
-                        reserva.setEstado(1); // 1: CONFIRMADO
+                        reserva.setEstado(Reservas.CONFIRMADO); //RESERVA CONFIRMADA
                         System.out.println(Thread.currentThread().getName() + " pago con exito el asiento Nº " + reserva.getPosAsiento());
                         
                     } else {
 
                         addCanceladas(reserva);
-                        removePendientes(reserva);
-                        reserva.setEstado(2); // 1: CANCELADO
-                        //ME FALTA DESCARTAR EL ASIENTO gasti
+                        pendientes.removePendientes(reserva);
+                        reserva.setEstado(Reservas.CANCELADO); // RESERVA CANCELADA
+                        reserva.setEstadoAsiento(Asiento.DESCARTADO); // ASIENTO DESCARTADO
                         System.out.println(Thread.currentThread().getName() + " se descarta el asiento Nº " + reserva.getPosAsiento() + " por pago RECHAZADO");
                         log.registrarCancelacion();
                     }

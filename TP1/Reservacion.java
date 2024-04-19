@@ -41,12 +41,24 @@ public class Reservacion implements Runnable {
             
         }
     }
-
-    public synchronized void setPendientes(Reservas reserva){
-        pendientes.add(reserva);
+    public synchronized Reservas obtenerReservaPendientesAleatoria() {
+        if (pendientes.isEmpty()) {
+              return null;
+        }
+        Random random = new Random();
+        int indicependientes = random.nextInt(pendientes.size());
+        return pendientes.get(indicependientes);
+    }
+    
+    public synchronized void addPendientes(Reservas r){
+        pendientes.add(r);
     }
 
-    public List<Reservas> getPendientes(){
-        return pendientes;
+    public synchronized void removePendientes(Reservas r){
+        pendientes.remove(r);
+    }
+
+    public synchronized boolean isEmptyPendientes(){
+        return pendientes.isEmpty();   
     }
 }
