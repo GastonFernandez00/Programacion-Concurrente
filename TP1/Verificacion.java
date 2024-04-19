@@ -1,14 +1,16 @@
-
-import java.util.List;
 import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
 
-public class ProcesoVerificacion implements Runnable {
+public class Verificacion implements Runnable {
     private RegistroReservas registroReservas;
     private Avion avion;
+    private List<Reservas> verificadas;
 
     public ProcesoVerificacion(RegistroReservas registroReservas, Avion avion) {
         this.registroReservas = registroReservas;
         this.avion = avion;
+        verificadas = new ArrayList<>();
     }
 
     //over
@@ -33,6 +35,29 @@ public class ProcesoVerificacion implements Runnable {
         Random random = new Random();
         return random.nextDouble() < probabilidad;
     }
+
+     //Metodos de la lista VERIFICADAS
+
+    public synchronized Reservas obtenerReservaVerificadasAleatoria() {
+          if (verificadas.isEmpty()) {
+              return null;
+          }
+          Random random = new Random();
+          int indiceVerificadas = random.nextInt(verificadas.size());
+          return verificadas.get(indiceVerificadas);   
+      }
+      
+    public synchronized void addVerificadas(Reservas r){
+           verificadas.add(r); 
+      }
+    public synchronized void removeVerificadas(Reservas r){
+            verificadas.remove(r);    
+      }
+     public synchronized boolean isEmptyVerificadas(){ 
+            return verificadas.isEmpty();   
+        }
+      
+  
 }
 
 

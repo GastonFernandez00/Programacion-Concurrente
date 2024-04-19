@@ -80,15 +80,18 @@ public class Avion {
         return buscado;
     }
 
+    public Integer getFilas(){  return filas;   }
+    public Integer getColumnas(){   return columnas;  }
+
     
-    public static void main(String[] args) {
-        Avion a = new Avion();
-        System.out.println("\n\n\n\n\n");
-        a.printAsientos();
-        a.printEstadoAsientos();
-        a.cambiarEstado("30F",Asiento.OCUPADO);
-        a.cambiarEstado("30E",5);
-        a.printEstadoAsientos();
+    // public static void main(String[] args) {
+    //     Avion a = new Avion();
+    //     System.out.println("\n\n\n\n\n");
+    //     a.printAsientos();
+    //     a.printEstadoAsientos();
+    //     a.cambiarEstado("30F",Asiento.OCUPADO);
+    //     a.cambiarEstado("30E",5);
+    //     a.printEstadoAsientos();
   
-    }*/
+    // }
 }
