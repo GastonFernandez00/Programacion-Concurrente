@@ -85,6 +85,9 @@ public class Pago implements Runnable {
             return confirmadas.isEmpty();   
         }
       }
+      public int cantConfirmadas(){
+            return confirmadas.size();
+      }
 
      //Metodos de la lista CANCELADAS
 

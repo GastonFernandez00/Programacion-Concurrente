@@ -1,3 +1,4 @@
+import java.util.Random;
 public class Avion {
 
 // ------------------------------- VARIABLES ---------------------------------------------
@@ -84,6 +85,23 @@ public class Avion {
     public Integer getColumnas(){   return columnas;  }
 
     
+    public synchronized Asiento getAsientoAleatorio(){
+        Random r = new Random();
+        Integer a = r.nextInt(1+filas);
+        Integer b = r.nextInt(1+columnas);
+        return asientos[a][b];
+     }
+
+    public synchronized boolean estaLleno(){
+        boolean lleno = true;
+        for(Integer i = 0; i < filas ; i++) for(Integer j = 0; j < columnas; j++){
+            if(asientos[i][j].getEstadoNumerico() == Asiento.LIBRE){
+                lleno = false;
+                break;
+            }
+        }
+        return lleno;
+    }    
     // public static void main(String[] args) {
     //     Avion a = new Avion();
     //     System.out.println("\n\n\n\n\n");
@@ -95,3 +113,4 @@ public class Avion {
   
     // }
 }
+

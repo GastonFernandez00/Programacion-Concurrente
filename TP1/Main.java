@@ -7,6 +7,7 @@ public class Main {
         Log log = new Log();
         Reservacion procesoReservacion = new Reservacion(reserva);
         Pago procesoPago = new Pago();
+        Verificacion procesoVerificacion = new Verificacion();
 
 
 //-------------------CREO HILOS-------------------
@@ -80,10 +81,13 @@ public class Main {
 
             avion.printEstadoAsientos();
 
+        //Imprimo la cantidad de reservas confirmadas y canceladas
 
-         / ver BIEN QUE HAY QUE HACER
-        int confirmadas = procesoReservacion.getPendientes().size();
-        int verificadas = 10; //falta definir las 2 clases que  faltan
+            log.escribirLog();
+
+        //Obtengo la cantidad de Confirmadas y verificadas para la ocupacion final 
+         int confirmadas = procesoPago.cantConfirmadas();
+         int verificadas = procesoVerificacion.cantVerificadas();
 
         // Imprimo la ocupación final del vuelo y el tiempo total del programa
 

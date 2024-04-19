@@ -14,33 +14,29 @@ public class Reservacion implements Runnable {
     public Reservacion(Reservas reserva){
         this.reserva = reserva;
         pendientes = new ArrayList<>();
+        matriz = new Avion();
     }
 
     public void run(){
-
-        Asiento[][] asientos= matriz.getMatriz();
-        Random random = new Random();
-
         while (true) {
             // Generar un asiento aleatorio
-            int fila = random.nextInt(asientos.length);
-            int columna = random.nextInt(asientos[0].length);
-            Asiento asiento = asientos[fila][columna];
+            Asiento a = matriz.getAsientoAleatorio();
+            Integer estado = a.getEstadoNumerico();
 
             // Verificar si el asiento está disponible
-            if (asiento.getEstado() == "LIBRE") {
+            if (estado == Asiento.LIBRE) {
                     // Marcar el asiento como reservado
-                    asiento.cambiarEstado(Asiento.RESERVADO);
+                    matriz.cambiarEstado(a.getAsiento(), Asiento.OCUPADO);
                     // Registrar la reserva pendiente
                     reserva.setEstado(Reservas.PENDIENTE);
-                    reserva.setPosAsieto(asiento.getAsiento());
-                    setPendientes(reserva);
+                    reserva.setPosAsieto(a.getAsiento());
+                    addPendientes(reserva);
                     System.out.println(Thread.currentThread().getName() + " reservó el asiento " + asiento.getAsiento());
                     break; // Salir del bucle una vez reservado el asiento
             }
-            
         }
     }
+
     public synchronized Reservas obtenerReservaPendientesAleatoria() {
         if (pendientes.isEmpty()) {
               return null;

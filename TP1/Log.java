@@ -24,7 +24,7 @@ public class Log {
         escribirLog();
     }
 
-    private void escribirLog() {
+    public void escribirLog() {
         long tiempoActual = System.currentTimeMillis();
         if (tiempoActual - tiempoInicio >= 200) {
            
@@ -35,7 +35,7 @@ public class Log {
            
         }
     }
-
+   
     //llamar esta funcion al final del main
     public synchronized void imprimirOcupacionFinal(int ocupacionFinal) {
        
