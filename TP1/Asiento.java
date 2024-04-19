@@ -31,11 +31,11 @@ public class Asiento  {
     public Asiento(String posicion,Integer e){asiento = posicion;estado = e;}
 
     // Imprime los estados posibles de un asiento
-    private void estadosPosibles(){
+    public void estadosPosibles(){
         System.out.println("LIBRE = 0\nOCUPADO = 1\nDESCARTADO = -1\n"); }
 
     // Convierte el valor numerico de un estado, a su significado en String
-    protected String estadosToString(Integer e){
+    private String estadosToString(Integer e){
         String state = "";
         switch (e) {
             case -1: state = "DESCARTADO"; break;
@@ -89,6 +89,7 @@ public class Asiento  {
     }
 
     public String getEstado(){return estadosToString(estado);}
+    public Integer getEstadoNumerico(){return estado;}
     public String getAsiento(){return asiento;}
 
     // public static void main(String[] args) {

@@ -65,6 +65,20 @@ public class Avion {
         System.out.println("El asiento seleccionado no existe.\n");
     }
 
+    //Devuelve el estado de un asiento en particular, en caso de no existir devuelve 100
+    public synchronized Integer getEstadoAsiento(String a){
+        Integer buscado = 100;
+        for(Integer i = 0; i < filas ; i++) for(Integer j = 0; j < columnas; j++){
+            if(asientos[i][j].getAsiento().equals(a)){
+                buscado = asientos[i][j].getEstadoNumerico();
+                break;
+            }
+        }
+        if(buscado == 100){
+            System.out.println("No se encontro el asiento "+a);
+        }
+        return buscado;
+    }
 
     
     public static void main(String[] args) {
