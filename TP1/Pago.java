@@ -51,7 +51,7 @@ public class Pago implements Runnable {
             }
     }
 
-       //Verifico el pago con una probabilidad del 90% que sea aprobado
+    //Verifico el pago con una probabilidad del 90% que sea aprobado
        private boolean verificarPago() {
        
         return new Random().nextInt(100) < 90;
@@ -74,20 +74,22 @@ public class Pago implements Runnable {
         synchronized(keyConfirmadas){
             confirmadas.add(r);
         }
-      }
+    }
     public void removeConfirmadas(Reservas r){
         synchronized(keyConfirmadas){
             confirmadas.remove(r);
         }
-      }
-      public boolean isEmptyConfirmadas(){
+    }
+    public boolean isEmptyConfirmadas(){
         synchronized(keyConfirmadas){
             return confirmadas.isEmpty();   
         }
-      }
-      public int cantConfirmadas(){
+    }
+    public int cantConfirmadas(){
+        synchronized(keyConfirmadas){
             return confirmadas.size();
-      }
+        }     
+    }
 
      //Metodos de la lista CANCELADAS
 
@@ -101,23 +103,22 @@ public class Pago implements Runnable {
           return canceladas.get(indiceCanceladas);
         } 
           
-      }
-      
+    }   
     public void addCanceladas(Reservas r){
         synchronized(keyCanceladas){
             canceladas.add(r);
         }
-      }
+    }
     public void removeCanceladas(Reservas r){
         synchronized(keyCanceladas){
             canceladas.remove(r);
         }
-      }
+    }
      public boolean isEmptyCanceladas(){
         synchronized(keyCanceladas){
             return canceladas.isEmpty();   
         }
-      }
+    }
   
 
         

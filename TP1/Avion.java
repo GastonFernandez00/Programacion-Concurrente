@@ -87,8 +87,8 @@ public class Avion {
     
     public synchronized Asiento getAsientoAleatorio(){
         Random r = new Random();
-        Integer a = r.nextInt(1+filas);
-        Integer b = r.nextInt(1+columnas);
+        Integer a = r.nextInt(filas);
+        Integer b = r.nextInt(columnas);
         return asientos[a][b];
      }
 

@@ -56,7 +56,7 @@ public class Verificacion implements Runnable {
      public synchronized boolean isEmptyVerificadas(){ 
             return verificadas.isEmpty();   
         }
-    public int cantVerificadas(){
+    public synchronized int cantVerificadas(){
             return verificadas.size();
       }
   
