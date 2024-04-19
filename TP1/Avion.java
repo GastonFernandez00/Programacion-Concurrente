@@ -90,5 +90,5 @@ public class Avion {
         a.cambiarEstado("30E",5);
         a.printEstadoAsientos();
   
-    }
+    }*/
 }
