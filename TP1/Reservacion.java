@@ -20,12 +20,12 @@ public class Reservacion implements Runnable {
 
             // Verificar si el asiento está disponible
             if (estado == Asiento.LIBRE) {
-                Reservas reserva = new Reservas();
+                Reservas reserva = new Reservas(a);
                 // Marcar el asiento como reservado
                 matriz.cambiarEstado(a.getAsiento(), Asiento.OCUPADO);
                 // Registrar la reserva pendiente
                 reserva.setEstado(Reservas.PENDIENTE);
-                reserva.setPosAsieto(a.getAsiento());
+                //reserva.setPosAsiento(a.getAsiento());
                 pendientes.addPendientes(reserva);
                 System.out.println(Thread.currentThread().getName() + " reservó el asiento " + a.getAsiento());
                 //break; // Salir del bucle una vez reservado el asiento

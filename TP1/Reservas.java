@@ -12,16 +12,21 @@ public class Reservas {
     private boolean checked;
     private Asiento asiento;
 
-    public Reservas(){}
-
+    public Reservas(Asiento a){
+        asiento = a;
+        this.checked = false;
+        posicion_asiento = a.getAsiento();
+    }
+/*
     public Reservas(String posicion_asiento, Integer estado){
-        this.posicion_asiento = posicion_asiento;
+        asiento = new Asiento(posicion_asiento);
+        //this.posicion_asiento = posicion_asiento;
         this.estado = estado;
         this.checked = false;
     }
-
-    public void setPosAsieto(String numero){
-        posicion_asiento = numero;
+*/
+    public void setPosAsiento(String numero){
+        posicion_asiento = numero; 
     }
 
     /*Los estados posibles son: - PENDIENTE DE PAGO

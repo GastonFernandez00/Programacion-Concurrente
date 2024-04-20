@@ -24,14 +24,16 @@ public class Pago implements Runnable {
                     reserva.setEstado(Reservas.CONFIRMADO); //RESERVA CONFIRMADA
                     lista.removePendientes(reserva); //elimino la reserva de pendientes 
                     lista.addCanceladas(reserva); //agrego la reserva a la lista de confirmadas
-                    System.out.println(Thread.currentThread().getName() + " pago con exito el asiento Nº " + reserva.getPosAsiento());
+                    System.out.println(Thread.currentThread().getName() 
+                    + " pago con exito el asiento Nº " + reserva.getPosAsiento());
                     
                 } else {
                     reserva.setEstado(Reservas.CANCELADO); // RESERVA CANCELADA
                     reserva.setEstadoAsiento(Asiento.DESCARTADO); // ASIENTO DESCARTADO rompe todo
                     lista.addCanceladas(reserva);
                     lista.removePendientes(reserva);
-                    System.out.println(Thread.currentThread().getName() + " se descarta el asiento Nº " + reserva.getPosAsiento() + " por pago RECHAZADO");
+                    System.out.println(Thread.currentThread().getName() 
+                    + " se descarta el asiento Nº " + reserva.getPosAsiento() + " por pago RECHAZADO");
                     //log.registrarCancelacion();
                 }
             }
@@ -71,6 +73,9 @@ public class Pago implements Runnable {
         t0.start();
         t1.start();
         t2.start();
+        t3.start();
+        t4.start();
+
 
         
 
@@ -91,8 +96,7 @@ public class Pago implements Runnable {
                 e.printStackTrace();
             }
 
-            t3.start();
-            t4.start();
+           
 
         try {
             t3.join();
@@ -104,7 +108,7 @@ public class Pago implements Runnable {
         }catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        //r.imprimir();
+        r.imprimir();
         
     }
     
