@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Listas {    
     private List<Reservas> canceladas, confirmadas, pendientes, verificadas;
     private final Object keyConfirmadas, keyCanceladas, keyPendientes, keyVerificadas;
+    private Log log;
+
 
     public Listas(){
         
@@ -18,8 +20,27 @@ public class Listas {
             keyPendientes = new Object();
             keyVerificadas = new Object();
         
+            log = new Log();
+            
     }
 
+    //---- METODOS PARA EL LOG -----
+
+    public Log getLog(){
+        return log;
+    }
+
+    public void escribirLogLista(){
+        log.escribirLog();
+    }
+
+    public synchronized void imprimirOcupacionFinal(){
+        log.imprimirOcupacionFinal(cantVerificadas());
+    }
+    
+    
+
+    //----METODOS PARA CHECKED-----
     public boolean getCheckedConfirmadas(Reservas r){
         synchronized(keyConfirmadas){
             return r.getChecked();

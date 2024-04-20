@@ -9,6 +9,7 @@ public class Pago implements Runnable {
 
     public Pago(Listas l) {
         this.lista = l;
+        log = lista.getLog();
     }
 
     @Override
@@ -34,13 +35,13 @@ public class Pago implements Runnable {
                     lista.removePendientes(reserva);
                     System.out.println(Thread.currentThread().getName() 
                     + " se descarta el asiento Nº " + reserva.getPosAsiento() + " por pago RECHAZADO");
-                    //log.registrarCancelacion();
+                    log.registrarCancelacion();
                 }
             }
             else{
                 contador++;
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

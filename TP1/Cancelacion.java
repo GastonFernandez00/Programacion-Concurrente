@@ -30,14 +30,14 @@ public class Cancelacion implements Runnable {
                             listas.setCheckedConfirmadas(reserva); // RESERVA CANCELADA
                             System.out.println(Thread.currentThread().getName()
                             + " se reconfirmó la reserva sobre el asiento Nº " + reserva.getPosAsiento());
-                            //log.registrarCancelacion();
+                            
                         }
                     }
                 }
                 else{
                     contador++;
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

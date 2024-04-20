@@ -30,12 +30,18 @@ public class Reservacion implements Runnable {
                 //break; // Salir del bucle una vez reservado el asiento
             }
         }
+        
     }
 
     public void imprimir(){
         matriz.printEstadoAsientos();
     }
 
+    public void imprimirMatriz(){
+        matriz.printAsientos();
+    }
+
+/*
     public static void main(String[] args) {
         Listas pendientes = new Listas();
         Reservacion r = new Reservacion(pendientes);
@@ -68,4 +74,5 @@ public class Reservacion implements Runnable {
         
        
     }
+    */
 }

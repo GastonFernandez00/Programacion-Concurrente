@@ -6,6 +6,7 @@ public class Verificacion implements Runnable {
 
     public Verificacion(Listas l) {
         this.lista = l;
+        log = lista.getLog();
 
     }
 
@@ -23,15 +24,15 @@ public class Verificacion implements Runnable {
                     
                         lista.removeConfirmadas(reserva); //elimino la reserva de confirmadas 
                         lista.addVerificadas(reserva); //agrego la reserva a la lista de verificadas
-                        System.out.println(Thread.currentThread().getName() 
-                        + " Esta verificada la reserva Nª " + reserva.getPosAsiento());
-                        
+                        System.out.println(Thread.currentThread().getName()   
+                         + " Esta verificada la reserva Nª " + reserva.getPosAsiento());
+                        log.registrarAprobacion();
                     } 
                 }
                 else{
                     contador++;
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

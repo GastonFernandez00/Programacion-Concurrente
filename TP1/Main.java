@@ -2,12 +2,13 @@ public class Main {
     public static void main(String[] args) {
 
 //-------------------CREO OBJETOS-------------------
-        Avion avion = new Avion();
-        Log log = new Log();
-        Reservacion procesoReservacion = new Reservacion();
-        Pago procesoPago = new Pago();
-        Verificacion procesoVerificacion = new Verificacion();
-
+       
+        Listas lista = new Listas();
+        Reservacion r = new Reservacion(lista);
+        Pago p = new Pago(lista);
+        Cancelacion c = new Cancelacion(lista);
+        Verificacion v = new Verificacion(lista);
+       
 
 //-------------------CREO HILOS-------------------
         Thread[] hilosReserva = new Thread[3]; // 3 hilos para el proceso de reserva
@@ -18,22 +19,22 @@ public class Main {
 
 //-------------------INICIO HILOS-------------------
         for (int i = 0; i < 3; i++) {
-            hilosReserva[i] = new Thread(procesoReservacion);
+            hilosReserva[i] = new Thread(r);
             hilosReserva[i].start();
         }
 
         for (int i = 0; i < 2; i++) {
-            hilosPago[i] = new Thread(procesoPago);
+            hilosPago[i] = new Thread(p);
             hilosPago[i].start();
         }
 
         for (int i = 0; i < 3; i++) {
-            hilosCancelacionValidacion[i] = new Thread();
+            hilosCancelacionValidacion[i] = new Thread(c);
             hilosCancelacionValidacion[i].start();
         }
 
         for (int i = 0; i < 2; i++) {
-            hilosVerificacion[i] = new Thread();
+            hilosVerificacion[i] = new Thread(v);
             hilosVerificacion[i].start();
         }
 
@@ -74,22 +75,19 @@ public class Main {
 
         //Imprimo asientos
 
-            avion.printAsientos();
+            r.imprimirMatriz();
 
         //Imprimo estado de los asientos
 
-            avion.printEstadoAsientos();
+            r.imprimir();
 
         //Imprimo la cantidad de reservas confirmadas y canceladas
 
-            log.escribirLog();
+            lista.escribirLogLista();
 
-        //Obtengo la cantidad de Confirmadas y verificadas para la ocupacion final 
-         int confirmadas = lista.cantConfirmadas();
-         int verificadas = lista.cantVerificadas();
 
         // Imprimo la ocupación final del vuelo y el tiempo total del programa
 
-        log.imprimirOcupacionFinal(confirmadas + verificadas);
+            lista.imprimirOcupacionFinal();
     }
 }
