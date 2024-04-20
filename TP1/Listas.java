@@ -20,6 +20,18 @@ public class Listas {
         
     }
 
+    public boolean getCheckedConfirmadas(Reservas r){
+        synchronized(keyConfirmadas){
+            return r.getChecked();
+        }
+
+    }
+    public void setCheckedConfirmadas(Reservas r){
+        synchronized(keyConfirmadas){
+            r.setCheked();
+        }
+    }
+
     //----METODOS PARA LISTA PENDIENTES-----
     
     public Reservas obtenerReservaPendientesAleatoria() {

@@ -13,22 +13,25 @@ public class Cancelacion implements Runnable {
         int contador = 0;
         while(true){
             if(!listas.isEmptyConfirmadas()){
-                contador = 0;
                 Reservas reserva = listas.obtenerReservaConfirmadaAleatoria(); //Reserva aleatoria
-                if(!reserva.getChecked()){
-                    if (seCancela()) {
-                        reserva.setEstado(Reservas.CANCELADO); //RESERVA CONFIRMADA
-                        reserva.setEstadoAsiento(Asiento.DESCARTADO);
-                        listas.removeConfirmadas(reserva); //elimino la reserva de pendientes
-                        listas.addCanceladas(reserva); //agrego la reserva a la lista de confirmadas
-                        System.out.println(Thread.currentThread().getName()
-                        + " canceló con éxito la reserva del asiento Nº " + reserva.getPosAsiento());
+                
+                if( reserva != null){
+                    contador = 0;
+                    if(!listas.getCheckedConfirmadas(reserva)){
+                        if (seCancela()) {
+                            reserva.setEstado(Reservas.CANCELADO); //RESERVA CONFIRMADA
+                            reserva.setEstadoAsiento(Asiento.DESCARTADO);
+                            listas.removeConfirmadas(reserva); //elimino la reserva de pendientes
+                            listas.addCanceladas(reserva); //agrego la reserva a la lista de confirmadas
+                            System.out.println(Thread.currentThread().getName()
+                            + " canceló con éxito la reserva del asiento Nº " + reserva.getPosAsiento());
 
-                    } else {
-                        reserva.setCheked(true); // RESERVA CANCELADA
-                        System.out.println(Thread.currentThread().getName()
-                        + " se reconfirmó la reserva sobre el asiento Nº " + reserva.getPosAsiento());
-                        //log.registrarCancelacion();
+                        } else {
+                            listas.setCheckedConfirmadas(reserva); // RESERVA CANCELADA
+                            System.out.println(Thread.currentThread().getName()
+                            + " se reconfirmó la reserva sobre el asiento Nº " + reserva.getPosAsiento());
+                            //log.registrarCancelacion();
+                        }
                     }
                 }
             }
@@ -47,7 +50,7 @@ public class Cancelacion implements Runnable {
         return new Random().nextInt(100) > 90;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Listas lista = new Listas();
         Reservacion r = new Reservacion(lista);
         Pago p = new Pago(lista);
@@ -133,7 +136,7 @@ public class Cancelacion implements Runnable {
         
     }
     
-        
+*/        
 }
 
 

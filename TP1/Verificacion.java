@@ -1,43 +1,145 @@
-import java.util.Random;
-import java.util.List;
-import java.util.ArrayList;
 
 public class Verificacion implements Runnable {
-    private RegistroReservas registroReservas;
-    private Avion avion;
-    private List<Reservas> verificadas;
+    Listas lista;
+    Log log;
 
-    public ProcesoVerificacion(RegistroReservas registroReservas, Avion avion) {
-        this.registroReservas = registroReservas;
-        this.avion = avion;
-        verificadas = new ArrayList<>();
+
+    public Verificacion(Listas l) {
+        this.lista = l;
+
     }
 
     //over
     public void run() {
-        // Obtener la lista de reservas confirmadas
-        List<Reserva> reservasConfirmadas = registroReservas.getReservasConfirmadas();
-
-        // Verificar cada reserva confirmada
-        for (Reserva reserva : reservasConfirmadas) {
-            // Seleccionar aleatoriamente si se marca como "checked"
-            boolean isChecked = generarAleatorio(0.5); // Suponiendo una probabilidad del 50%
-
-            if (isChecked) {
-                // Mover la reserva a reservas verificadas
-                registroReservas.moverReserva(reserva, EstadoReserva.VERIFICADA);
+        
+        int contador = 0;        
+        while (true) {
+            
+            if (!lista.isEmptyConfirmadas()) {
+                
+                // reserva = new Reservas();
+                Reservas reserva = lista.obtenerReservaConfirmadaAleatoria(); //Reserva aleatoria
+                if( reserva != null){
+                    contador = 0;
+                    if (reserva.getChecked() ) {
+                    
+                        lista.removeConfirmadas(reserva); //elimino la reserva de confirmadas 
+                        lista.addVerificadas(reserva); //agrego la reserva a la lista de verificadas
+                        System.out.println(Thread.currentThread().getName() 
+                        + " Esta verificada la reserva Nª " + reserva.getPosAsiento());
+                        
+                    } 
+                }
             }
+            else{
+                contador++;
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(contador == 5) break;
+            }
+      
         }
+      
     }
 
-    // Método para generar un valor booleano aleatorio con una probabilidad dada
-    private boolean generarAleatorio(double probabilidad) {
-        Random random = new Random();
-        return random.nextDouble() < probabilidad;
-    }
+    public static void main(String[] args) {
+        Listas lista = new Listas();
+        Reservacion r = new Reservacion(lista);
+        Pago p = new Pago(lista);
+        Cancelacion c = new Cancelacion(lista);
+        Verificacion v = new Verificacion(lista);
 
-    
-  
+        
+        Thread t0 = new Thread(r);
+        Thread t1 = new Thread(r);
+        Thread t2 = new Thread(r);
+
+        Thread t3 = new Thread(p);
+        Thread t4 = new Thread(p);
+
+        Thread t5 = new Thread(c);
+        Thread t6 = new Thread(c); 
+        Thread t7 = new Thread(c);
+
+        Thread t8 = new Thread(v);
+        Thread t9 = new Thread(v);
+        
+
+        t0.start();
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+        t5.start();
+        t6.start();
+        t7.start();
+        t8.start();
+        t9.start();
+
+        
+        try {
+            t0.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        try {
+            t1.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        try {
+            t2.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        try {
+            t3.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        try {
+            t4.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        try {
+            t5.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        try {
+            t6.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            
+        try {
+            t7.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        try {
+            t8.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            
+        try {
+            t9.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        // r.imprimir();
+        
+    }
 }
 
 

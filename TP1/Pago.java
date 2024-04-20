@@ -57,7 +57,7 @@ public class Pago implements Runnable {
     }
 
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Listas lista = new Listas();
         Reservacion r = new Reservacion(lista);
         Pago p = new Pago(lista);
@@ -110,7 +110,7 @@ public class Pago implements Runnable {
             }
         r.imprimir();
         
-    }
+    }*/
     
         
 }

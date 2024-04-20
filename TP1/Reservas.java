@@ -42,8 +42,8 @@ public class Reservas {
         asiento.cambiarEstado(E);
     }
 
-    public synchronized void setCheked(boolean cheked){
-        this.checked = cheked;
+    public void setCheked(){
+        this.checked = true;
     }
 
     public String getPosAsiento(){
@@ -57,4 +57,5 @@ public class Reservas {
     public boolean getChecked(){
         return checked;
     }
+    
 }

@@ -3,7 +3,6 @@
  */
 
 public class Reservacion implements Runnable {
-    private Reservas reserva;
     private Avion matriz;
     private Listas pendientes;
 
