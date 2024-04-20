@@ -32,15 +32,18 @@ public class Verificacion implements Runnable {
                 else{
                     contador++;
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     if(contador == 5) break;
                 }
-      
+                // try {
+                //     Thread.sleep(150);
+                // } catch (InterruptedException e) {
+                //     e.printStackTrace();
+                // }
         }
-      
     }
 
     public static void main(String[] args) {

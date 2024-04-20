@@ -1,4 +1,5 @@
 import java.util.Random;
+//import java.util.AbstractMap;
 public class Avion {
 
 // ------------------------------- VARIABLES ---------------------------------------------
@@ -9,7 +10,7 @@ public class Avion {
 
     // Conjunto de Asientos
     private Asiento asientos[][];
-     
+    //public Asiento asientosAUX[][];
 // ------------------------------- FUNCIONES ---------------------------------------------
 
     // Constructor con filas y columnas definibles
@@ -31,6 +32,10 @@ public class Avion {
         for(Integer j = 0; j < columnas; j++){
             Asiento a = new Asiento(i.toString()+(char)(j+65));
             asientos[i][j] = a;
+
+            //Asiento aAUX = new Asiento(i.toString()+(char)(j+65));
+           // asientosAUX[i][j] = aAUX;
+
         } 
     }
 
@@ -83,14 +88,28 @@ public class Avion {
 
     public Integer getFilas(){  return filas;   }
     public Integer getColumnas(){   return columnas;  }
+    public String getAsiento(int i, int j){return asientos[i][j].getAsiento(); }
 
     
     public synchronized Asiento getAsientoAleatorio(){
         Random r = new Random();
         Integer a = r.nextInt(filas);
         Integer b = r.nextInt(columnas);
+        //Asiento aAUX = asientosAUX[a][b] ;
         return asientos[a][b];
+
      }
+
+     public synchronized Asiento getAsiento(String a){
+        Asiento x = null;
+        for(Integer i = 0; i < filas ; i++) for(Integer j = 0; j < columnas; j++){
+            if(a.equals(asientos[i][j].getAsiento())){
+                return x = asientos[i][j];
+            }
+        }
+        return x;
+        
+    }
 
     public synchronized boolean estaLleno(){
         boolean lleno = true;
@@ -102,15 +121,14 @@ public class Avion {
         }
         return lleno;
     }    
-    // public static void main(String[] args) {
-    //     Avion a = new Avion();
-    //     System.out.println("\n\n\n\n\n");
-    //     a.printAsientos();
-    //     a.printEstadoAsientos();
-    //     a.cambiarEstado("30F",Asiento.OCUPADO);
-    //     a.cambiarEstado("30E",5);
-    //     a.printEstadoAsientos();
-  
-    // }
+    
+    /* private void aleatorio(){
+    AbstractMap<filas, columnas> coords = new AbstractMap<filas, columnas>();
+    for(int i = 0; i < filas; i++){
+            for(int j = 0; j < columnas; j++){
+                coords.put​(j, i);
+            }
+        }
+    }   */ 
 }
 

@@ -2,14 +2,17 @@ import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Listas {    
+public class Listas {   
+    private Log log; 
     private List<Reservas> canceladas, confirmadas, pendientes, verificadas;
     private final Object keyConfirmadas, keyCanceladas, keyPendientes, keyVerificadas;
-    private Log log;
-
-
+    
+  
+        
     public Listas(){
         
+            log = new Log();
+
             canceladas = new ArrayList<>();
             confirmadas = new ArrayList<>();
             pendientes = new ArrayList<>();
@@ -20,8 +23,15 @@ public class Listas {
             keyPendientes = new Object();
             keyVerificadas = new Object();
         
-            log = new Log();
             
+            
+    }
+
+    public void printListas(){
+        System.out.println("caneladas: " + canceladas.size());
+        System.out.println("confirmadas: " + confirmadas.size());
+        System.out.println("Pendientes: " + pendientes.size());
+        System.out.println("Verificadas: " + verificadas.size());
     }
 
     //---- METODOS PARA EL LOG -----

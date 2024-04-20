@@ -3,13 +3,16 @@
 public class Log {
     private int reservasCanceladas;
     private int reservasAprobadas;
+    private long tiempoInicioOriginal;
     private long tiempoInicio;
 
     public Log() {
+        
+        tiempoInicio = System.currentTimeMillis();
+        tiempoInicioOriginal = tiempoInicio;
         reservasCanceladas = 0;
         reservasAprobadas = 0;
-        tiempoInicio = System.currentTimeMillis();
-       
+        
         System.out.println("Inicio del programa\n");
       
     }
@@ -37,10 +40,10 @@ public class Log {
     }
    
     //llamar esta funcion al final del main
-    public synchronized void imprimirOcupacionFinal(int ocupacionFinal) {
+    public void imprimirOcupacionFinal(int ocupacionFinal) {
        
         System.out.println("Ocupación final del vuelo: " + ocupacionFinal + " asientos ocupados\n");
-        long tiempoTotal = System.currentTimeMillis() - tiempoInicio;
+        long tiempoTotal = System.currentTimeMillis() - tiempoInicioOriginal;
         System.out.println("Tiempo total del programa: " + tiempoTotal + " milisegundos\n");
        
     }

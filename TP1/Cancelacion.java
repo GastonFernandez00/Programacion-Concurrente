@@ -37,12 +37,17 @@ public class Cancelacion implements Runnable {
                 else{
                     contador++;
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     if(contador == 5) break;
                 }
+                // try {
+                //     Thread.sleep(50);
+                // } catch (InterruptedException e) {
+                //     e.printStackTrace();
+                // }
        }
     }
     private boolean seCancela() {

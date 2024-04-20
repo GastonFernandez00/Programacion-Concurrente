@@ -89,5 +89,7 @@ public class Main {
         // Imprimo la ocupación final del vuelo y el tiempo total del programa
 
             lista.imprimirOcupacionFinal();
+
+            // lista.printListas();
     }
 }
