@@ -15,8 +15,6 @@ public class Verificacion implements Runnable {
         int contador = 0;        
         while (true) {
             
-            if (!lista.isEmptyConfirmadas()) {
-                
                 // reserva = new Reservas();
                 Reservas reserva = lista.obtenerReservaConfirmadaAleatoria(); //Reserva aleatoria
                 if( reserva != null){
@@ -30,16 +28,15 @@ public class Verificacion implements Runnable {
                         
                     } 
                 }
-            }
-            else{
-                contador++;
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                else{
+                    contador++;
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(contador == 5) break;
                 }
-                if(contador == 5) break;
-            }
       
         }
       

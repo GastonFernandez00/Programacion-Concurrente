@@ -12,7 +12,7 @@ public class Cancelacion implements Runnable {
     public void run() {
         int contador = 0;
         while(true){
-            if(!listas.isEmptyConfirmadas()){
+            
                 Reservas reserva = listas.obtenerReservaConfirmadaAleatoria(); //Reserva aleatoria
                 
                 if( reserva != null){
@@ -34,16 +34,15 @@ public class Cancelacion implements Runnable {
                         }
                     }
                 }
-            }
-            else{
-                contador++;
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                else{
+                    contador++;
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(contador == 5) break;
                 }
-                if(contador == 5) break;
-            }
        }
     }
     private boolean seCancela() {
