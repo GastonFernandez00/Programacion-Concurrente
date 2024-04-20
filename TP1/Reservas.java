@@ -29,11 +29,11 @@ public class Reservas {
                                 - CANCELADO
                                 - VERIFICADO 
     */
-    public void setEstado(Integer estado){
+    public synchronized void setEstado(Integer estado){
         this.estado = estado;
     }
 
-    public void setEstadoAsiento(Integer E){
+    public synchronized void setEstadoAsiento(Integer E){
         asiento.cambiarEstado(E);
     }
 

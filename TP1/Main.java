@@ -85,8 +85,8 @@ public class Main {
             log.escribirLog();
 
         //Obtengo la cantidad de Confirmadas y verificadas para la ocupacion final 
-         int confirmadas = procesoPago.cantConfirmadas();
-         int verificadas = procesoVerificacion.cantVerificadas();
+         int confirmadas = lista.cantConfirmadas();
+         int verificadas = lista.cantVerificadas();
 
         // Imprimo la ocupación final del vuelo y el tiempo total del programa
 

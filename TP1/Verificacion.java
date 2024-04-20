@@ -36,29 +36,7 @@ public class Verificacion implements Runnable {
         return random.nextDouble() < probabilidad;
     }
 
-     //Metodos de la lista VERIFICADAS
-
-    public synchronized Reservas obtenerReservaVerificadasAleatoria() {
-          if (verificadas.isEmpty()) {
-              return null;
-          }
-          Random random = new Random();
-          int indiceVerificadas = random.nextInt(verificadas.size());
-          return verificadas.get(indiceVerificadas);   
-      }
-      
-    public synchronized void addVerificadas(Reservas r){
-           verificadas.add(r); 
-      }
-    public synchronized void removeVerificadas(Reservas r){
-            verificadas.remove(r);    
-      }
-     public synchronized boolean isEmptyVerificadas(){ 
-            return verificadas.isEmpty();   
-        }
-    public synchronized int cantVerificadas(){
-            return verificadas.size();
-      }
+    
   
 }
 

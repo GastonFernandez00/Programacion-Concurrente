@@ -2,17 +2,13 @@
  * se encuentra LIBRE 
  */
 
-import java.util.Random;
-import java.util.List;
-import java.util.ArrayList;
-
 public class Reservacion implements Runnable {
     private Reservas reserva;
     private Avion matriz;
-    private List<Reservas> pendientes;
+    private Listas pendientes;
 
-    public Reservacion(){
-        pendientes = new ArrayList<>();
+    public Reservacion(Listas pendientes){
+        this.pendientes = pendientes;
         matriz = new Avion();
     }
 
@@ -30,40 +26,20 @@ public class Reservacion implements Runnable {
                 // Registrar la reserva pendiente
                 reserva.setEstado(Reservas.PENDIENTE);
                 reserva.setPosAsieto(a.getAsiento());
-                addPendientes(reserva);
+                pendientes.addPendientes(reserva);
                 System.out.println(Thread.currentThread().getName() + " reservó el asiento " + a.getAsiento());
                 //break; // Salir del bucle una vez reservado el asiento
             }
         }
     }
 
-    public synchronized Reservas obtenerReservaPendientesAleatoria() {
-        if (pendientes.isEmpty()) {
-              return null;
-        }
-        Random random = new Random();
-        int indicependientes = random.nextInt(pendientes.size());
-        return pendientes.get(indicependientes);
-    }
-    
-    public synchronized void addPendientes(Reservas r){
-        pendientes.add(r);
-    }
-
-    public synchronized void removePendientes(Reservas r){
-        pendientes.remove(r);
-    }
-
-    public synchronized boolean isEmptyPendientes(){
-        return pendientes.isEmpty();   
-    }
-
     public void imprimir(){
         matriz.printEstadoAsientos();
     }
 
-    /*public static void main(String[] args) {
-        Reservacion r = new Reservacion();
+    public static void main(String[] args) {
+        Listas pendientes = new Listas();
+        Reservacion r = new Reservacion(pendientes);
         
         Thread t1 = new Thread(r);
         Thread t2 = new Thread(r);
@@ -92,5 +68,5 @@ public class Reservacion implements Runnable {
         r.imprimir();
         
        
-    }*/
+    }
 }
