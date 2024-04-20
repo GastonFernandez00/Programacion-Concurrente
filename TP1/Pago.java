@@ -23,7 +23,7 @@ public class Pago implements Runnable {
                 if (verificarPago()) {
                     reserva.setEstado(Reservas.CONFIRMADO); //RESERVA CONFIRMADA
                     lista.removePendientes(reserva); //elimino la reserva de pendientes 
-                    lista.addCanceladas(reserva); //agrego la reserva a la lista de confirmadas
+                    lista.addConfirmadas(reserva); //agrego la reserva a la lista de confirmadas
                     System.out.println(Thread.currentThread().getName() 
                     + " pago con exito el asiento Nº " + reserva.getPosAsiento());
                     

@@ -10,26 +10,131 @@ public class Cancelacion implements Runnable {
 
     @Override
     public void run() {
-        Reservas reserva = listas.obtenerReservaConfirmadaAleatoria(); //Reserva aleatoria
-        if (seCancela()) {
-            reserva.setEstado(Reservas.CANCELADO); //RESERVA CONFIRMADA
-            reserva.setEstadoAsiento(Asiento.DESCARTADO);
-            listas.removeConfirmadas(reserva); //elimino la reserva de pendientes
-            reserva.setCheked(true);
-            listas.addCanceladas(reserva); //agrego la reserva a la lista de confirmadas
-            System.out.println(Thread.currentThread().getName()
-                    + " canceló con éxito la reserva del asiento Nº " + reserva.getPosAsiento() + "porque pintó");
+        int contador = 0;
+        while(true){
+            if(!listas.isEmptyConfirmadas()){
+                contador = 0;
+                Reservas reserva = listas.obtenerReservaConfirmadaAleatoria(); //Reserva aleatoria
+                if(!reserva.getChecked()){
+                    if (seCancela()) {
+                        reserva.setEstado(Reservas.CANCELADO); //RESERVA CONFIRMADA
+                        reserva.setEstadoAsiento(Asiento.DESCARTADO);
+                        listas.removeConfirmadas(reserva); //elimino la reserva de pendientes
+                        listas.addCanceladas(reserva); //agrego la reserva a la lista de confirmadas
+                        System.out.println(Thread.currentThread().getName()
+                        + " canceló con éxito la reserva del asiento Nº " + reserva.getPosAsiento());
 
-        } else {
-            reserva.setCheked(true); // RESERVA CANCELADA
-            System.out.println(Thread.currentThread().getName()
-                    + " se reconfirmó la reserva sobre el asiento Nº " + reserva.getPosAsiento());
-            //log.registrarCancelacion();
-        }
-
+                    } else {
+                        reserva.setCheked(true); // RESERVA CANCELADA
+                        System.out.println(Thread.currentThread().getName()
+                        + " se reconfirmó la reserva sobre el asiento Nº " + reserva.getPosAsiento());
+                        //log.registrarCancelacion();
+                    }
+                }
+            }
+            else{
+                contador++;
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(contador == 5) break;
+            }
+       }
     }
-
     private boolean seCancela() {
         return new Random().nextInt(100) > 90;
     }
+
+    public static void main(String[] args) {
+        Listas lista = new Listas();
+        Reservacion r = new Reservacion(lista);
+        Pago p = new Pago(lista);
+        Cancelacion c = new Cancelacion(lista);
+
+        
+        Thread t0 = new Thread(r);
+        Thread t1 = new Thread(r);
+        Thread t2 = new Thread(r);
+
+        Thread t3 = new Thread(p);
+        Thread t4 = new Thread(p);
+
+        Thread t5 = new Thread(c);
+        Thread t6 = new Thread(c); 
+        Thread t7 = new Thread(c);
+        
+        t0.start();
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+        t5.start();
+        t6.start();
+        t7.start();
+       
+        
+
+
+        
+
+        try {
+            t0.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        try {
+            t1.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        try {
+            t2.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+           
+
+        try {
+            t3.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        try {
+            t4.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+      
+
+        try {
+            t5.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        try {
+            t6.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            
+        try {
+            t7.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        // r.imprimir();
+        
+    }
+    
+        
 }
+
+
+

@@ -42,7 +42,7 @@ public class Reservas {
         asiento.cambiarEstado(E);
     }
 
-    public void setCheked(boolean cheked){
+    public synchronized void setCheked(boolean cheked){
         this.checked = cheked;
     }
 
