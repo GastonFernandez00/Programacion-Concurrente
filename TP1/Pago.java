@@ -14,14 +14,15 @@ public class Pago implements Runnable {
     public Pago() {
         canceladas = new ArrayList<>();
         confirmadas = new ArrayList<>();
-        keyConfirmadas=new Object();
-        keyCanceladas=new Object();
+        keyConfirmadas = new Object();
+        keyCanceladas = new Object();
+        pendientes = new Reservacion();
     }
 
     @Override
     public void run() {
 
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!pendientes.isEmptyPendientes()) {
             
                 if (!pendientes.isEmptyPendientes()) {
                     Reservas reserva = obtenerReservaCanceladasAleatoria(); //Reserva aleatoria
@@ -41,13 +42,7 @@ public class Pago implements Runnable {
                         log.registrarCancelacion();
                     }
                 }
-                
-            }
-
-            try {
-                Thread.sleep(100); // Esperar un tiempo antes de realizar la próxima verificación
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+            
             }
     }
 
@@ -119,7 +114,57 @@ public class Pago implements Runnable {
             return canceladas.isEmpty();   
         }
     }
-  
+    
+    public static void main(String[] args) {
+        Reservacion r = new Reservacion();
+        Pago p = new Pago();
 
+        
+        Thread t1 = new Thread(r);
+        Thread t2 = new Thread(r);
+        Thread t3 = new Thread(r);
+
+        Thread t4 = new Thread(p);
+        Thread t5 = new Thread(p);
+        
+        t1.start();
+        t2.start();
+        t3.start();
+
+        
+
+        try {
+            t1.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        try {
+            t2.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        try {
+            t3.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            t4.start();
+            t5.start();
+
+        try {
+            t4.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        try {
+            t5.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        //r.imprimir();
+        
+    }
         
 }

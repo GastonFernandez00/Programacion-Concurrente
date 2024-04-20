@@ -3,9 +3,8 @@ public class Main {
 
 //-------------------CREO OBJETOS-------------------
         Avion avion = new Avion();
-        Reservas reserva = new Reservas();
         Log log = new Log();
-        Reservacion procesoReservacion = new Reservacion(reserva);
+        Reservacion procesoReservacion = new Reservacion();
         Pago procesoPago = new Pago();
         Verificacion procesoVerificacion = new Verificacion();
 
