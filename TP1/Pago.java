@@ -14,14 +14,16 @@ public class Pago implements Runnable {
 
     @Override
     public void run() {  
+        int contador = 0;
         try{
             Thread.sleep(100);
         }catch (InterruptedException e) {
             e.printStackTrace();
         }     
         //boolean continuar = true;
-        while (!lista.isEmptyPendientes()) {
-            //if(!lista.isEmptyPendientes()) {
+        while (true) {
+            if(!lista.isEmptyPendientes()) { 
+                contador = 0;
 
                 Reservas reserva = lista.obtenerReservaPendientesAleatoria(); //Reserva aleatoria
                 if (verificarPago()) {
@@ -40,12 +42,21 @@ public class Pago implements Runnable {
                     + " se descarta el asiento Nº " + reserva.getPosAsiento() + " por pago RECHAZADO");
                     log.registrarCancelacion();
                 }
-            //}
-            try{
-                Thread.sleep(200);
-            }catch (InterruptedException e) {
-                e.printStackTrace();
             }
+            else{
+                contador++;
+                try{
+                    Thread.sleep(100);
+                }catch (InterruptedException e) {
+                    e.printStackTrace();
+                }   
+                if(contador == 10) break;
+            } 
+            // try{
+            //     Thread.sleep(200);
+            // }catch (InterruptedException e) {
+            //     e.printStackTrace();
+            // }
             /*if (lista.isEmptyPendientes()) {
                 continuar = false; // Si la lista de pendientes está vacía, salimos del bucle
                 System.out.println(Thread.currentThread().getName() + " Lista de pendientes vacía. Saliendo del bucle.");
@@ -80,9 +91,6 @@ public class Pago implements Runnable {
         t3.start();
         t4.start();
 
-
-        
-
         try {
             t0.join();
         }catch (InterruptedException e) {
@@ -99,8 +107,6 @@ public class Pago implements Runnable {
         }catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-           
 
         try {
             t3.join();

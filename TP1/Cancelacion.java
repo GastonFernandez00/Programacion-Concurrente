@@ -10,10 +10,10 @@ public class Cancelacion implements Runnable {
 
     @Override
     public void run() {
-        //int contador = 0;
-        while(!listas.isEmptyConfirmadas()){
+        int contador = 0;
+        while(true){
+                if(!listas.isEmptyConfirmadas()){
                 Reservas reserva = listas.obtenerReservaConfirmadaAleatoria(); //Reserva aleatoria
-                
                 //if( reserva != null){
                     //contador = 0;
                     if(!listas.getCheckedConfirmadas(reserva)){
@@ -32,21 +32,21 @@ public class Cancelacion implements Runnable {
                             
                         }
                     }
-                //}
-                /*else{
+                }
+                else{
                     contador++;
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if(contador == 5) break;
-                }*/
-                try{
-                    Thread.sleep(150);
-                }catch (InterruptedException e) {
-                    e.printStackTrace();
+                    if(contador == 10) break;
                 }
+                // try{
+                //     Thread.sleep(150);
+                // }catch (InterruptedException e) {
+                //     e.printStackTrace();
+                // }
         }
         System.out.println(Thread.currentThread().getName()+" Terminó la ejecución");
     }

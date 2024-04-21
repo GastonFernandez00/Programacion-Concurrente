@@ -106,19 +106,19 @@ public class Listas {
         }
     }
     public Reservas obtenerReservaConfirmadaAleatoria() {
-        synchronized(keyPendientes){
-        if (copiaConfirmadas.isEmpty()) {
-            InicializarCopiaConfirmadas();
-        }
-        Random random = new Random();
-        int indiceConfirmadas = random.nextInt(copiaConfirmadas.size());
+        synchronized(keyConfirmadas){
+            if (copiaConfirmadas.isEmpty()) {
+                InicializarCopiaConfirmadas();
+            }
+            Random random = new Random();
+            int indiceConfirmadas = random.nextInt(copiaConfirmadas.size());
 
-        Reservas r_aux = copiaPendientes.get(indiceConfirmadas);
-        copiaPendientes.remove(indiceConfirmadas);
-        return r_aux;
+            Reservas r_aux = copiaConfirmadas.get(indiceConfirmadas);
+            copiaConfirmadas.remove(indiceConfirmadas);
+            return r_aux;
         }
     }
-    
+
     public void addConfirmadas(Reservas r){
         synchronized(keyConfirmadas){
             confirmadas.add(r);
