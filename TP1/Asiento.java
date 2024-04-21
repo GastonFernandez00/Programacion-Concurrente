@@ -5,19 +5,17 @@ public class Asiento  {
 // ------------------------------- VARIABLES ---------------------------------------------
     
     // Definiciones
-    private static final Integer LIBRE = 0;
-    private static final Integer RESERVADO = 1;
-    private static final Integer VERIFICADO = 2;
-    private static final Integer CANCELADO = -1;
+    public static final Integer LIBRE = 0;
+    public static final Integer OCUPADO = 1;
+    public static final Integer DESCARTADO = -1;
 
     // Posicion del Asiento
     private String asiento = "-1";
 
     /*  Los estados del asiento
      *  0 == Libre
-     *  1 == Reservado
-     *  2 == Verificado
-     *  -1 == Cancelado  */
+     *  1 == Ocupado
+     *  -1 == Descartado  */
     private Integer estado = -999;
 // ------------------------------- FUNCIONES ---------------------------------------------
     
@@ -33,17 +31,16 @@ public class Asiento  {
     public Asiento(String posicion,Integer e){asiento = posicion;estado = e;}
 
     // Imprime los estados posibles de un asiento
-    private void estadosPosibles(){
-        System.out.println("LIBRE = 0\nRESERVADO = 1\nVERIFICADO = 2\nCANCELADO = -1\n"); }
+    public void estadosPosibles(){
+        System.out.println("LIBRE = 0\nOCUPADO = 1\nDESCARTADO = -1\n"); }
 
     // Convierte el valor numerico de un estado, a su significado en String
-    protected String estadosToString(Integer e){
+    private String estadosToString(Integer e){
         String state = "";
         switch (e) {
-            case -1: state = "CANCELADO"; break;
+            case -1: state = "DESCARTADO"; break;
             case 0: state = "LIBRE"; break;
-            case 1: state = "RESERVADO"; break;
-            case 2: state = "VERIFICADO"; break;
+            case 1: state = "OCUPADO"; break;
             default: break;
         }
         return state;
@@ -51,7 +48,7 @@ public class Asiento  {
 
     public void cambiarEstado(Integer E){
         // Se pregunta si 'E' pertenece a alguno de los estados posibles
-        if(E != LIBRE && E != RESERVADO && E != VERIFICADO && E != CANCELADO){
+        if(E != LIBRE && E != OCUPADO && E != DESCARTADO){
             // En caso de que no:
             System.out.println("\nEstado Inexistente. ¿Reingresar? S|N");
 
@@ -73,11 +70,10 @@ public class Asiento  {
                     nuevoEstado =(Integer)myObj.nextInt();
                     pasadas++;
 
-                } while (nuevoEstado != LIBRE && nuevoEstado != RESERVADO && 
-                         nuevoEstado != VERIFICADO && nuevoEstado != CANCELADO);
+                } while (nuevoEstado != LIBRE && nuevoEstado != OCUPADO && 
+                         nuevoEstado != DESCARTADO);
                 
                 myObj = null;
-                // cambiarEstado(nuevoEstado);
                 this.estado = nuevoEstado;
             }
             else{ myObj = null; return; }
@@ -93,6 +89,7 @@ public class Asiento  {
     }
 
     public String getEstado(){return estadosToString(estado);}
+    public Integer getEstadoNumerico(){return estado;}
     public String getAsiento(){return asiento;}
 
     // public static void main(String[] args) {
@@ -100,8 +97,9 @@ public class Asiento  {
     //     Asiento a = new Asiento("XX");
     //     System.out.println(a.getEstado()+"\n");
     //     a.cambiarEstado(LIBRE);
-    //     a.cambiarEstado(CANCELADO);
+    //     a.cambiarEstado(DESCARTADO);
     //     System.out.println(a.getEstado()+"\n");
         
     // }
 }
+
