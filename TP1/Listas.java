@@ -120,6 +120,11 @@ public class Listas {
         }
     }
 
+    public void reingresaraCopiaConfirmada(Reservas a){
+        //Tal vez falte sync
+        copiaConfirmadas.add(a);
+    }
+
     public void addConfirmadas(Reservas r){
         synchronized(keyConfirmadas){
             confirmadas.add(r);
@@ -170,6 +175,11 @@ public class Listas {
      public boolean isEmptyCanceladas(){
         synchronized(keyCanceladas){
             return canceladas.isEmpty();   
+        }
+    }
+    public int cantCanceladas(){
+        synchronized(keyCanceladas){
+             return canceladas.size(); 
         }
     }
 

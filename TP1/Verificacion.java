@@ -27,6 +27,8 @@ public class Verificacion implements Runnable {
                         System.out.println(Thread.currentThread().getName()   
                          + " Esta verificada la reserva Nª " + reserva.getPosAsiento());
                         log.registrarAprobacion();
+                    }else{
+                        lista.reingresaraCopiaConfirmada(reserva);
                     } 
                 }
             }

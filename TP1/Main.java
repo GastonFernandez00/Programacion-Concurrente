@@ -1,5 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
 public class Main {
     public static void main(String[] args) {
+        // List<Integer> list = new ArrayList<>();
+        // for(int ii = 0; ii < 10; ii++){
 
 //-------------------CREO OBJETOS-------------------
        
@@ -91,5 +95,13 @@ public class Main {
             lista.imprimirOcupacionFinal();
 
             lista.printListas();
+
+            // int x = lista.cantVerificadas() + lista.cantCanceladas();
+            // list.add(x);
     }
+//     for (int i = 0; i < list.size(); i++) {
+//         System.out.println("Vuelo " + i + ": " + list.get(i) + " asientos");
+
+//     }
+// }
 }
