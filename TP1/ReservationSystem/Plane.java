@@ -11,7 +11,9 @@ public class Plane{
     public Seat[][] seats;
     public List<int[]> seatPool;
 
-    /*Plane class constructor*/
+    /*  Plane class constructor
+    *  Creates a matrix of seats with the specified rows and columns
+    */
     public Plane() {
         seats = new Seat[rows][columns];
         for (int i = 0; i < rows; i++)
@@ -22,6 +24,9 @@ public class Plane{
         seatPool = createSeatPool();
     }
 
+    /*
+     * Creates a list of all the positions in the plane
+     */
     public List<int[]> createSeatPool(){
         List<int[]> seatPool = new ArrayList<>();
         for (int i = 0; i < rows; i++)
@@ -31,7 +36,7 @@ public class Plane{
         return seatPool;
     }
 
-    /*Changes status for seat ID=e*/
+    /* Changes the status of a given seat */
     public synchronized void seatStatusChange(String id,Integer newStatus){
         for(int i = 0; i < rows ; i++) for(int j = 0; j < columns; j++){
             if(seats[i][j].getSeat().equals(id)){
@@ -56,7 +61,7 @@ public class Plane{
         }
     }
 
-    /*Returns a random seat from the pool*/
+    /* Returns a random seat from the pool */
     public synchronized String getRandomSeat(){
         Random r = new Random();
         if(!seatPool.isEmpty()) {
@@ -67,7 +72,7 @@ public class Plane{
         return null;
     }
 
-    /*Returns a seat by ID*/
+    /* Returns a seat by ID */
     public Seat getAsiento(String id){
         for(int i = 0; i < rows ; i++) for(int j = 0; j < columns; j++){
             if(id.equals(seats[i][j].getSeat())){
@@ -77,13 +82,16 @@ public class Plane{
         return null;
     }
 
+    /* Returns the amount of rows on the plane's matrix */
     public int getRow(){
         return rows;}
 
+    /* Returns the amount of columns on the plane's matrix */
     public int getColumn(){
         return columns;
     }
 
+    /* Prints the status of all the seats */
     public void printSeatsStatus(){
         System.out.println("\n\n");
         for(int i = 0; i < rows ; i++) for(int j = 0; j < columns; j++){
@@ -92,6 +100,7 @@ public class Plane{
         }
     }
 
+    /* Returns the status of a seat as a string */
     public String statusToText(Integer status){
         String x = "";
         switch (status){

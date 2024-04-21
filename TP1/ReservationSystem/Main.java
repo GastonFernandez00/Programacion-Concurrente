@@ -2,6 +2,8 @@ package ReservationSystem;
 
 public class Main {
     public static void main(String[] args) {
+
+        //------------------- CREATE OBJECTS -------------------
         Plane plane = new Plane();
         ReservationSystem.Lists lists = new ReservationSystem.Lists();
         Reservation r = new Reservation(lists, plane);
@@ -9,14 +11,13 @@ public class Main {
         ReservationSystem.Cancellation c = new ReservationSystem.Cancellation(lists, plane);
         Verification v = new Verification(lists, plane);
 
-        //-------------------CREO HILOS-------------------
-        Thread[] hilosReserva = new Thread[3]; // 3 hilos para el proceso de reserva
-        Thread[] hilosPago = new Thread[2]; // 2 hilos para el proceso de pago
-        Thread[] hilosCancelacionValidacion = new Thread[3]; // 3 hilos para el proceso de cancelación/validación
-        Thread[] hilosVerificacion = new Thread[2]; // 2 hilos para el proceso de verificación
+        //------------------- CREATE THREADS -------------------
+        Thread[] hilosReserva = new Thread[3]; // 3 Threads for the reservation process
+        Thread[] hilosPago = new Thread[2]; // 2 Threads for the payment process
+        Thread[] hilosCancelacionValidacion = new Thread[3]; // 3 Threads for the cancellation and validation process
+        Thread[] hilosVerificacion = new Thread[2]; // 2 Threads for the verification process
 
-
-//-------------------INICIO HILOS-------------------
+        //------------------- STARTING THE THREADS -------------------
         for (int i = 0; i < 3; i++) {
             hilosReserva[i] = new Thread(r);
             hilosReserva[i].start();
@@ -37,7 +38,7 @@ public class Main {
             hilosVerificacion[i].start();
         }
 
-//-------------------ESPERO A QUE TODOS TERMINEN PARA TERMINAR EL PROGRAMA-------------------
+        //------------------- WAIT FOR EACH THREAD TO FINISH -------------------
         for (Thread hilor : hilosReserva) {
             try {
                 hilor.join();
@@ -70,26 +71,22 @@ public class Main {
             }
         }
 
-//-------------------PARTE FINAL-------------------
+        //------------------- ENDING -------------------
 
-        //Imprimo asientos
+        // Print the seats as a matrix
 
         plane.printSeats();
 
-        //Imprimo estado de los asientos
+        // Print the status of the seats
 
         plane.printSeatsStatus();
 
-        //Imprimo la cantidad de reservas confirmadas y canceladas
+        // Prints the amount of cancelled and confirmed reservations every 200ms
 
         lists.getwriteLog();
 
-
-        // Imprimo la ocupación final del vuelo y el tiempo total del programa
+        // Prints the final amount of taken seats and the total time of the program
 
         lists.getPrintFinalTakenSeats();
-
-
-
     }
 }

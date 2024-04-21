@@ -7,6 +7,7 @@ public class Payment implements Runnable {
     Plane plane;
     Log log;
 
+    /* Payment constructor, receives a list and a plane */
     public Payment(ReservationSystem.Lists lists, Plane plane) {
         this.lists = lists;
         this.plane = plane;
@@ -14,29 +15,37 @@ public class Payment implements Runnable {
     }
 
     public void run() {
-        int i = 0;
+        int i = 0; // Used as a counter to avoid infinite loops
+        
+        /* While free seats exist, and there are pending reservations */
         while ((!plane.seatPool.isEmpty() && i<500)||!lists.isEmptyPending()) {
+            // Asks again if there are pending reservations
             if(!lists.isEmptyPending()){
-                i=0;
+                i=0; //Restarts the counter
+                
+                //Takes a random pending reservation
                 Reserve reserve = lists.getRandomPendingReserve();
-                if(reserve!=null){
-                    if(verifyPayment()){
-                        lists.removePendingReserve(reserve);
-                        lists.addConfirmedReserve(reserve);
+                if(reserve!=null){ 
+                    if(verifyPayment()){//Asks if the reserve gets paid or cancelled
+
+                        lists.addConfirmedReserve(reserve); //Adds the reservation to the confirmed list
                         System.out.println(Thread.currentThread().getName() + " pagó el asiento " + reserve.getSeatID());
-                    }else{
-                        lists.removePendingReserve(reserve);
+                    }
+                    else{ //The reservation gets cancelled
+                       
+                        // Adds the reservation to the cancelled list
                         lists.addCancelledReserve(reserve);
 
+                        // Changes the status of the seat to 'DISCARDED'
                         plane.seatStatusChange(reserve.getSeatID(),Seat.DISCARDED);
                         System.out.println(Thread.currentThread().getName() + " no pagó el asiento " + reserve.getSeatID());
-                        log.registerCancellation();
+                        log.registerCancellation(); // Registers the cancellation in the log
                     }
                 }
-            }else {
+            }else{
                 i++;
             }
-            try {
+            try { // Sleeps for 40ms
                 Thread.sleep(40);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -45,7 +54,7 @@ public class Payment implements Runnable {
         System.out.println(Thread.currentThread().getName() + " Payment Finished");
     }
 
-    private boolean verifyPayment() {
+    private boolean verifyPayment() {//Asks if the reserve gets paid or cancelled
         Random random = new Random();
         return random.nextInt(100) < 90;
     }

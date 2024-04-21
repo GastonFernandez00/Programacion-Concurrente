@@ -1,6 +1,5 @@
 package ReservationSystem;
 
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ public class Lists {
     private final Object pendingKey, confirmedKey, cancelledKey, verifiedKey;
     private Log log;
 
+    // Initialize the lists, the log, and the keys for synchronization
     public Lists(){
         canceladas = new ArrayList<>();
         confirmadas = new ArrayList<>();
@@ -25,25 +25,29 @@ public class Lists {
         
     }
 
+//---LOG METHODS---
+
     public Log getLog(){
         return log;
     }
 
+    // Prints the amount of cancelled and approved reservations every 200ms
       public void getwriteLog(){
         log.writeLog();
     }
+
+    // Prints the amount of 'taken' seats
     public void getPrintFinalTakenSeats(){
         log.printFinalTakenSeats(verificadas.size());
     }
 
-    public void printListas(){
-        System.out.println("canceladas: " + canceladas.size());
-        System.out.println("confirmadas: " + confirmadas.size());
-        System.out.println("Pendientes: " + pendientes.size());
-        System.out.println("Verificadas: " + verificadas.size());
-    }
+//---PENDING LIST METHODS---
 
-    //---PENDING LIST METHODS---
+    /*  Returns a random pending reservation.
+        The random reservation is removed from the list before being returned.    
+    
+        If there are no pending reservations, returns null
+    */
     public Reserve getRandomPendingReserve() {
         synchronized(pendingKey){
             if (pendientes.isEmpty()) {
@@ -55,25 +59,35 @@ public class Lists {
         }
     }
 
+    // Adds a reservation to the pending list
     public void addPendingReserve(Reserve r){
         synchronized(pendingKey){
             pendientes.add(r);
         }
     }
 
+    // Removes a reservation from the pending list
     public void removePendingReserve(Reserve r){
         synchronized(pendingKey){
             pendientes.remove(r);
         }
     }
 
+    // Returns true if the pending list is empty
     public boolean isEmptyPending(){
         synchronized(pendingKey){
             return pendientes.isEmpty();
         }
     }
 
-    //---CONFIRMED LIST METHODS---
+//---CONFIRMED LIST METHODS---
+
+    /* 
+     * Returns a random confirmed reservation.
+     * The random reservation is removed from the list before being returned.
+     * 
+     * If there are no confirmed reservations, returns null
+     */
     public Reserve getRandomConfirmedReserve() {
         synchronized(confirmedKey){
             if (confirmadas.isEmpty()) {
@@ -88,50 +102,61 @@ public class Lists {
         }
     }
     
+    /* 
+     * Returns a random checked reservation.
+     * The random reservation is removed from the list before being returned.
+     * 
+     * If there are no confirmed reservations, returns null
+     */
     public Reserve getRandomCheckedReserve() {
         synchronized(confirmedKey){
             for (Iterator<Reserve> iterator = confirmadas.iterator(); iterator.hasNext();) {
                 Reserve reserve = iterator.next();
-                if (reserve.getChecked()) {
-                    iterator.remove(); // Remover la reserva seleccionada de la lista
+                if (reserve.getChecked()) { // If the reservation is checked
+                    iterator.remove(); // Remove the reservation from the list
                     return reserve;
                 }
             }
-            // Si no se encuentra ninguna reserva confirmada y checkeada
             return null;
         }
     }
 
+    // Adds a reservation to the confirmed list
     public void addConfirmedReserve(Reserve r){
         synchronized(confirmedKey){
             confirmadas.add(r);
         }
     }
 
+    // Removes a reservation from the confirmed list
     public void removeConfirmedReserve(Reserve r){
         synchronized(confirmedKey){
             confirmadas.remove(r);
         }
     }
 
+    // Returns true if the confirmed list is empty
     public boolean isEmptyConfirmed(){
         synchronized(confirmedKey){
             return confirmadas.isEmpty();
         }
     }
 
+    // Returns true if a reservation is checked
     public boolean getCheckedConfirmadas(Reserve r){
         synchronized(confirmedKey){
             return r.getChecked();
         }
     }
 
+    // Sets a reservation as checked
     public void setCheckedConfirmadas( Reserve r){
         synchronized(confirmedKey){
             r.setChecked();
         }
     }
 
+    // Returns true if there are unchecked reservations
     public boolean uncheckedExist(){
         synchronized(confirmedKey){
             for(Reserve r: confirmadas){
@@ -143,7 +168,14 @@ public class Lists {
         }
     }
 
-    //---CANCELLED LIST METHODS---
+//---CANCELLED LIST METHODS---
+
+    /* 
+     * Returns a random cancelled reservation.
+     * The random reservation is removed from the list before being returned.
+     * 
+     * If there are no cancelled reservations, returns null
+     */
     public Reserve getRandomCancelledReserve() {
         synchronized(cancelledKey){
             if (canceladas.isEmpty()) {
@@ -155,37 +187,44 @@ public class Lists {
         }
     }
 
+    // Adds a reservation to the cancelled list
     public void addCancelledReserve(Reserve r){
         synchronized(cancelledKey){
             canceladas.add(r);
         }
     }
 
+    // Removes a reservation from the cancelled list
     public void removeCancelledReserve(Reserve r){
         synchronized(cancelledKey){
             canceladas.remove(r);
         }
     }
 
+    // Returns true if the cancelled list is empty
     public boolean isEmptyCancelled(){
         synchronized(cancelledKey){
             return canceladas.isEmpty();
         }
     }
 
+    // Prints the size of the cancelled list
     public void printCancelledLength(){
         synchronized(cancelledKey){
             System.out.println("Canceladas: " + canceladas.size());
         }
     }
 
-    //---VERIFIED LIST METHODS---
+//---VERIFIED LIST METHODS---
+
+    // Adds a reservation to the verified list
     public void addVerifiedReserve(Reserve r){
         synchronized(verifiedKey){
             verificadas.add(r);
         }
     }
 
+    // Prints the size of the verified list
     public void printVerifiedLength(){
         synchronized(verifiedKey){
             System.out.println("Verificadas: " + verificadas.size());
