@@ -3,13 +3,14 @@ package ReservationSystem;
 public class Verification implements Runnable{
     ReservationSystem.Lists lists;
     ReservationSystem.Plane plane;
-    ReservationSystem.Log log;
+    Log log;
 
     public Verification(ReservationSystem.Lists lists, ReservationSystem.Plane plane) {
         this.lists = lists;
         this.plane = plane;
+        log = lists.getLog();
     }
-
+    
     public void run(){
         int i = 0;
         while (i<20) {
@@ -20,7 +21,8 @@ public class Verification implements Runnable{
                     if(lists.getCheckedConfirmadas(reserve)){
                         lists.removeConfirmedReserve(reserve);
                         lists.addVerifiedReserve(reserve);
-                        System.out.println(Thread.currentThread().getName() + " verificó el asiento " + reserve.getSeatID());
+                        System.out.println(Thread.currentThread().getName() + " verificó el asiento " + reserve.getSeatID()); 
+                        log.registerApproved();
                     }
                 }
             }
@@ -31,5 +33,6 @@ public class Verification implements Runnable{
                 e.printStackTrace();
             }
         }
+        System.out.println(Thread.currentThread().getName() + " Verification Finished");
     }
 }

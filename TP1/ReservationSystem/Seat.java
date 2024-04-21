@@ -11,7 +11,8 @@ public class Seat {
     /*Seat constructor*/
     public Seat(String id){
         this.id = id;
-        status = 0;}                                //starts as available
+        status = 0;
+    }                                //starts as available
 
     public void setStatus(Integer status){
         this.status = status;

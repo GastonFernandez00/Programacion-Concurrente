@@ -13,6 +13,7 @@ public class Reservation implements Runnable {
         int i = 0;
         while (!plane.seatPool.isEmpty()) {
             Reserve reserve = new Reserve(plane.getRandomSeat(), plane);
+            plane.seatStatusChange(reserve.getSeatID(), Seat.TAKEN);
             lists.addPendingReserve(reserve);
             i++;
             System.out.println(Thread.currentThread().getName() + " reservó el asiento " + reserve.getSeatID());
@@ -22,6 +23,7 @@ public class Reservation implements Runnable {
                 e.printStackTrace();
             }
         }
+        System.out.println(Thread.currentThread().getName() + " Reservation Finished");
     }
 
 }

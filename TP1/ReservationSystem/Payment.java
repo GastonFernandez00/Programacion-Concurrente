@@ -5,11 +5,12 @@ import java.util.Random;
 public class Payment implements Runnable {
     ReservationSystem.Lists lists;
     Plane plane;
-    ReservationSystem.Log log;
+    Log log;
 
     public Payment(ReservationSystem.Lists lists, Plane plane) {
         this.lists = lists;
         this.plane = plane;
+        log = lists.getLog();
     }
 
     public void run() {
@@ -26,7 +27,10 @@ public class Payment implements Runnable {
                     }else{
                         lists.removePendingReserve(reserve);
                         lists.addCancelledReserve(reserve);
+
+                        plane.seatStatusChange(reserve.getSeatID(),Seat.DISCARDED);
                         System.out.println(Thread.currentThread().getName() + " no pagó el asiento " + reserve.getSeatID());
+                        log.registerCancellation();
                     }
                 }
             }else {
@@ -38,6 +42,7 @@ public class Payment implements Runnable {
                 e.printStackTrace();
             }
         }
+        System.out.println(Thread.currentThread().getName() + " Payment Finished");
     }
 
     private boolean verifyPayment() {

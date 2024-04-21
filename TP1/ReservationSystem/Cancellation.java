@@ -10,11 +10,12 @@ public class Cancellation implements Runnable{
     public Cancellation(Lists lists, Plane plane) {
         this.lists = lists;
         this.plane = plane;
+        log = lists.getLog();
     }
 
     public void run(){
         int i = 0;
-        while (i<500) {
+        while (i<10) {
             if(!lists.isEmptyConfirmed()){
                 i=0;
                 Reserve reserve = lists.getRandomConfirmedReserve();
@@ -23,6 +24,7 @@ public class Cancellation implements Runnable{
                         lists.removeConfirmedReserve(reserve);
                         lists.addCancelledReserve(reserve);
                         System.out.println(Thread.currentThread().getName() + " canceló el asiento " + reserve.getSeatID());
+                        log.registerCancellation();
                     }else{
                         lists.setCheckedConfirmadas(reserve);
                         lists.addConfirmedReserve(reserve);
@@ -37,6 +39,7 @@ public class Cancellation implements Runnable{
                 e.printStackTrace();
             }
         }
+        System.out.println(Thread.currentThread().getName() + " Cancellation Finished");
     }
 
     private boolean verifyCancellation() {

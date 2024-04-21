@@ -73,34 +73,23 @@ public class Main {
 //-------------------PARTE FINAL-------------------
 
         //Imprimo asientos
-        /*for(int i = 0; i < plane.seatPool.size(); i++) {
-            System.out.println(Arrays.toString(plane.seatPool.get(i)));
-        }
-        int[] a = plane.seatPool.remove(5);
-        for(int i = 0; i < plane.seatPool.size(); i++) {
-            System.out.println(Arrays.toString(plane.seatPool.get(i)));
-        }
-        System.out.println(Arrays.toString(a));
-*/
 
-        //plane.printSeats();
+        plane.printSeats();
 
         //Imprimo estado de los asientos
 
-        //plane.printSeatsStatus();
+        plane.printSeatsStatus();
 
         //Imprimo la cantidad de reservas confirmadas y canceladas
 
-        //lists.escribirLogLista();
+        lists.getwriteLog();
 
 
         // Imprimo la ocupación final del vuelo y el tiempo total del programa
 
-        //lists.imprimirOcupacionFinal();
+        lists.getPrintFinalTakenSeats();
 
-        // lista.printListas();
-        lists.printVerifiedLength();
-        lists.printCancelledLength();
+
 
     }
 }

@@ -19,20 +19,21 @@ public class Log {
 
     }
 
-    public synchronized void registrarCancelacion() {
+    public synchronized void registerCancellation() {
         reservasCanceladas++;
-        escribirLog();
+        writeLog();
     }
 
-    public synchronized void registrarAprobacion() {
+    public synchronized void registerApproved() {
         reservasAprobadas++;
-        escribirLog();
+        writeLog();
     }
 
-    public void escribirLog() {
+    public void writeLog() {
         long tiempoActual = System.currentTimeMillis();
         if (tiempoActual - tiempoInicio >= 200) {
 
+            System.out.println("\n");
             System.out.println("Reservas canceladas: " + reservasCanceladas + "\n");
             System.out.println("Reservas aprobadas: " + reservasAprobadas + "\n");
             System.out.println("\n");
@@ -42,7 +43,7 @@ public class Log {
     }
 
     //llamar esta funcion al final del main
-    public void imprimirOcupacionFinal(int ocupacionFinal) {
+    public void printFinalTakenSeats(int ocupacionFinal) {
 
         System.out.println("Ocupación final del vuelo: " + ocupacionFinal + " asientos ocupados\n");
         long tiempoTotal = System.currentTimeMillis() - tiempoInicioOriginal;

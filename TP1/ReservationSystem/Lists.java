@@ -9,17 +9,31 @@ import java.util.Random;
 public class Lists {
     private List<Reserve> canceladas, confirmadas, pendientes, verificadas;
     private final Object pendingKey, confirmedKey, cancelledKey, verifiedKey;
+    private Log log;
 
     public Lists(){
         canceladas = new ArrayList<>();
         confirmadas = new ArrayList<>();
         pendientes = new ArrayList<>();
         verificadas = new ArrayList<>();
+        log = new Log();
 
         pendingKey = new Object();
         confirmedKey = new Object();
         cancelledKey = new Object();
         verifiedKey = new Object();
+        
+    }
+
+    public Log getLog(){
+        return log;
+    }
+
+      public void getwriteLog(){
+        log.writeLog();
+    }
+    public void getPrintFinalTakenSeats(){
+        log.printFinalTakenSeats(verificadas.size());
     }
 
     public void printListas(){
@@ -73,6 +87,7 @@ public class Lists {
             return null;
         }
     }
+    
     public Reserve getRandomCheckedReserve() {
         synchronized(confirmedKey){
             for (Iterator<Reserve> iterator = confirmadas.iterator(); iterator.hasNext();) {

@@ -88,7 +88,26 @@ public class Plane{
         System.out.println("\n\n");
         for(int i = 0; i < rows ; i++) for(int j = 0; j < columns; j++){
 
-            System.out.println(seats[i][j].getSeat()+": "+seats[i][j].getStatus());
+            System.out.println(seats[i][j].getSeat()+": "+statusToText(seats[i][j].getStatus()));
         }
     }
+
+    public String statusToText(Integer status){
+        String x = "";
+        switch (status){
+            case 0:
+                x = "Available";
+                break;
+            case 1:
+                x = "Taken";
+                break;
+            case 2:
+                x = "Discarded";
+                break;
+        }
+        return x;
+    
+    }
+
+
 }
