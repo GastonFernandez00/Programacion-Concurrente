@@ -1,21 +1,20 @@
+package ReservationSystem;
+
 public class Main {
     public static void main(String[] args) {
+        Plane plane = new Plane();
+        ReservationSystem.Lists lists = new ReservationSystem.Lists();
+        Reservation r = new Reservation(lists, plane);
+        Payment p = new Payment(lists, plane);
+        ReservationSystem.Cancellation c = new ReservationSystem.Cancellation(lists, plane);
+        Verification v = new Verification(lists, plane);
 
-//-------------------CREO OBJETOS-------------------
-       
-        Listas lista = new Listas();
-        Reservacion r = new Reservacion(lista);
-        Pago p = new Pago(lista);
-        Cancelacion c = new Cancelacion(lista);
-        Verificacion v = new Verificacion(lista);
-       
-
-//-------------------CREO HILOS-------------------
+        //-------------------CREO HILOS-------------------
         Thread[] hilosReserva = new Thread[3]; // 3 hilos para el proceso de reserva
         Thread[] hilosPago = new Thread[2]; // 2 hilos para el proceso de pago
         Thread[] hilosCancelacionValidacion = new Thread[3]; // 3 hilos para el proceso de cancelación/validación
         Thread[] hilosVerificacion = new Thread[2]; // 2 hilos para el proceso de verificación
-       
+
 
 //-------------------INICIO HILOS-------------------
         for (int i = 0; i < 3; i++) {
@@ -39,33 +38,33 @@ public class Main {
         }
 
 //-------------------ESPERO A QUE TODOS TERMINEN PARA TERMINAR EL PROGRAMA-------------------
-        for (Thread hilo : hilosReserva) {
+        for (Thread hilor : hilosReserva) {
             try {
-                hilo.join();
+                hilor.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-        for (Thread hilo : hilosPago) {
+        for (Thread hilop : hilosPago) {
             try {
-                hilo.join();
+                hilop.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-        for (Thread hilo : hilosCancelacionValidacion) {
+        for (Thread hiloc : hilosCancelacionValidacion) {
             try {
-                hilo.join();
+                hiloc.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-        for (Thread hilo : hilosVerificacion) {
+        for (Thread hilov : hilosVerificacion) {
             try {
-                hilo.join();
+                hilov.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -74,22 +73,34 @@ public class Main {
 //-------------------PARTE FINAL-------------------
 
         //Imprimo asientos
+        /*for(int i = 0; i < plane.seatPool.size(); i++) {
+            System.out.println(Arrays.toString(plane.seatPool.get(i)));
+        }
+        int[] a = plane.seatPool.remove(5);
+        for(int i = 0; i < plane.seatPool.size(); i++) {
+            System.out.println(Arrays.toString(plane.seatPool.get(i)));
+        }
+        System.out.println(Arrays.toString(a));
+*/
 
-            r.imprimirMatriz();
+        //plane.printSeats();
 
         //Imprimo estado de los asientos
 
-            r.imprimir();
+        //plane.printSeatsStatus();
 
         //Imprimo la cantidad de reservas confirmadas y canceladas
 
-            lista.escribirLogLista();
+        //lists.escribirLogLista();
 
 
         // Imprimo la ocupación final del vuelo y el tiempo total del programa
 
-            lista.imprimirOcupacionFinal();
+        //lists.imprimirOcupacionFinal();
 
-            lista.printListas();
+        // lista.printListas();
+        lists.printVerifiedLength();
+        lists.printCancelledLength();
+
     }
 }
