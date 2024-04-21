@@ -71,6 +71,7 @@ public class Log {
             printWriter.println("Reservas Aprobadas: "+reservasAprobadas);
             printWriter.println("Tiempos entre logs - Canceladas - Aprobadas");
             for (Integer[] l : times) { printWriter.println(l[0]+"      "+l[1]+"        "+l[2]);};
+            printWriter.println("Tiempos entre logs - Canceladas - Aprobadas");
             printWriter.println("\nTiempo total de ejecucion: "+tiempoTotal+"[ms]");
             printWriter.println("------------------------------------");
             printWriter.close();

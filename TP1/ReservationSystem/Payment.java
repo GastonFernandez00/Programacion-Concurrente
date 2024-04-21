@@ -46,7 +46,7 @@ public class Payment implements Runnable {
                 i++;
             }
             try { // Sleeps for 40ms
-                Thread.sleep(40);
+                Thread.sleep(250);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

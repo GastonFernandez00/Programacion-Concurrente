@@ -28,7 +28,7 @@ public class Reservation implements Runnable {
             System.out.println(Thread.currentThread().getName() + " reservó el asiento " + reserve.getSeatID());
             // Sleeps for 40ms
             try {
-                Thread.sleep(40);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

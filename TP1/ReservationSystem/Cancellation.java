@@ -45,7 +45,7 @@ public class Cancellation implements Runnable{
             }
             i++;
             try { // Sleeps for 40ms
-                Thread.sleep(40);
+                Thread.sleep(150);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
