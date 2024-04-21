@@ -111,6 +111,7 @@ public class Listas {
                 InicializarCopiaConfirmadas();
             }
             Random random = new Random();
+            if(copiaConfirmadas.size() == 0) return null;
             int indiceConfirmadas = random.nextInt(copiaConfirmadas.size());
 
             Reservas r_aux = copiaConfirmadas.get(indiceConfirmadas);

@@ -47,37 +47,37 @@ public class Reservacion implements Runnable {
     }
 
 
-    public static void main(String[] args) {
-        Listas pendientes = new Listas();
-        Reservacion r = new Reservacion(pendientes);
+    // public static void main(String[] args) {
+    //     Listas pendientes = new Listas();
+    //     Reservacion r = new Reservacion(pendientes);
         
-        Thread t1 = new Thread(r);
-        Thread t2 = new Thread(r);
-        Thread t3 = new Thread(r);
+    //     Thread t1 = new Thread(r);
+    //     Thread t2 = new Thread(r);
+    //     Thread t3 = new Thread(r);
         
-        t1.start();
-        t2.start();
-        t3.start();
+    //     t1.start();
+    //     t2.start();
+    //     t3.start();
 
-        try {
-            t1.join();
-        }catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+    //     try {
+    //         t1.join();
+    //     }catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
 
-        try {
-            t2.join();
-        }catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        try {
-            t3.join();
-        }catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        r.imprimir();
+    //     try {
+    //         t2.join();
+    //     }catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
+    //     try {
+    //         t3.join();
+    //     }catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
+    //     r.imprimir();
         
        
-    }
+    // }
     
 }

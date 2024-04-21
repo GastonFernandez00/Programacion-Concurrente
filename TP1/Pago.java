@@ -72,55 +72,55 @@ public class Pago implements Runnable {
     }
 
     
-    public static void main(String[] args) {
-        Listas lista = new Listas();
-        Reservacion r = new Reservacion(lista);
-        Pago p = new Pago(lista);
+    // public static void main(String[] args) {
+    //     Listas lista = new Listas();
+    //     Reservacion r = new Reservacion(lista);
+    //     Pago p = new Pago(lista);
 
         
-        Thread t0 = new Thread(r);
-        Thread t1 = new Thread(r);
-        Thread t2 = new Thread(r);
+    //     Thread t0 = new Thread(r);
+    //     Thread t1 = new Thread(r);
+    //     Thread t2 = new Thread(r);
 
-        Thread t3 = new Thread(p);
-        Thread t4 = new Thread(p);
+    //     Thread t3 = new Thread(p);
+    //     Thread t4 = new Thread(p);
         
-        t0.start();
-        t1.start();
-        t2.start();
-        t3.start();
-        t4.start();
+    //     t0.start();
+    //     t1.start();
+    //     t2.start();
+    //     t3.start();
+    //     t4.start();
 
-        try {
-            t0.join();
-        }catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+    //     try {
+    //         t0.join();
+    //     }catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
 
-        try {
-            t1.join();
-        }catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        try {
-            t2.join();
-        }catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+    //     try {
+    //         t1.join();
+    //     }catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
+    //     try {
+    //         t2.join();
+    //     }catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
 
-        try {
-            t3.join();
-        }catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        try {
-            t4.join();
-        }catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        r.imprimir();
+    //     try {
+    //         t3.join();
+    //     }catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
+    //     try {
+    //         t4.join();
+    //     }catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
+    //     r.imprimir();
         
-    }
+    // }
     
         
 }
