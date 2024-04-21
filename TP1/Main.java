@@ -1,92 +1,95 @@
-/**
- * Este no es el main del trabajo, es solo el codigo del log pero todavia no esta bien configurado
- */
-
 public class Main {
+    public static void main(String[] args) {
 
-	/**
-	 * Main method of the example
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
+//-------------------CREO OBJETOS-------------------
+       
+        Listas lista = new Listas();
+        Reservacion r = new Reservacion(lista);
+        Pago p = new Pago(lista);
+        Cancelacion c = new Cancelacion(lista);
+        Verificacion v = new Verificacion(lista);
+       
 
-		// Thread priority infomation
-		System.out.printf("Minimum Priority: %s\n", Thread.MIN_PRIORITY);
-		System.out.printf("Normal Priority: %s\n", Thread.NORM_PRIORITY);
-		System.out.printf("Maximun Priority: %s\n", Thread.MAX_PRIORITY);
+//-------------------CREO HILOS-------------------
+        Thread[] hilosReserva = new Thread[3]; // 3 hilos para el proceso de reserva
+        Thread[] hilosPago = new Thread[2]; // 2 hilos para el proceso de pago
+        Thread[] hilosCancelacionValidacion = new Thread[3]; // 3 hilos para el proceso de cancelación/validación
+        Thread[] hilosVerificacion = new Thread[2]; // 2 hilos para el proceso de verificación
+       
 
-		Thread threads[];
-		Thread.State status[];
+//-------------------INICIO HILOS-------------------
+        for (int i = 0; i < 3; i++) {
+            hilosReserva[i] = new Thread(r);
+            hilosReserva[i].start();
+        }
 
-		// Launch 10 threads to do the operation, 5 with the max
-		// priority, 5 with the min
-		threads = new Thread[10];
-		status = new Thread.State[10];
-		for (int i = 0; i < 10; i++) {
-			threads[i] = new Thread(new Calculator());
-			if ((i % 2) == 0) {
-				threads[i].setPriority(Thread.MAX_PRIORITY);
-			} else {
-				threads[i].setPriority(Thread.MIN_PRIORITY);
-			}
-			threads[i].setName("My Thread " + i);
-		}
+        for (int i = 0; i < 2; i++) {
+            hilosPago[i] = new Thread(p);
+            hilosPago[i].start();
+        }
 
-		// Wait for the finalization of the threads. Meanwhile,
-		// write the status of those threads in a file
-		try (FileWriter file = new FileWriter("C:\\Users\\lujan\\OneDrive\\Documentos\\FACULTAD\\4to\\Programación Concurrente\\PRACTICO\\3-SourcesparaproyectosClase2 26-03\\Calculator\\data\\log.txt"); 
-		     PrintWriter pw = new PrintWriter(file);) {
+        for (int i = 0; i < 3; i++) {
+            hilosCancelacionValidacion[i] = new Thread(c);
+            hilosCancelacionValidacion[i].start();
+        }
 
-			// Write the status of the threads
-			for (int i = 0; i < 10; i++) {
-				pw.println("Main : Status of Thread " + i + " : " + threads[i].getState());
-				status[i] = threads[i].getState();
-			}
+        for (int i = 0; i < 2; i++) {
+            hilosVerificacion[i] = new Thread(v);
+            hilosVerificacion[i].start();
+        }
 
-			// Start the ten threads
-			for (int i = 0; i < 10; i++) {
-				threads[i].start();
-			}
+//-------------------ESPERO A QUE TODOS TERMINEN PARA TERMINAR EL PROGRAMA-------------------
+        for (Thread hilo : hilosReserva) {
+            try {
+                hilo.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
-			// Wait for the finalization of the threads. We save the status of
-			// the threads and only write the status if it changes.
-			boolean finish = false;
-			while (!finish) {
-				for (int i = 0; i < 10; i++) {
-					if (threads[i].getState() != status[i]) {
-						writeThreadInfo(pw, threads[i], status[i]);
-						status[i] = threads[i].getState();
-					}
-				}
+        for (Thread hilo : hilosPago) {
+            try {
+                hilo.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
-				finish = true;
-				for (int i = 0; i < 10; i++) {
-					finish = finish && (threads[i].getState() == State.TERMINATED);
-				}
-			}
+        for (Thread hilo : hilosCancelacionValidacion) {
+            try {
+                hilo.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+        for (Thread hilo : hilosVerificacion) {
+            try {
+                hilo.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
-	/**
-	 * This method writes the state of a thread in a file
-	 * 
-	 * @param pw
-	 *            : PrintWriter to write the data
-	 * @param thread
-	 *            : Thread whose information will be written
-	 * @param state
-	 *            : Old state of the thread
-	 */
-	private static void writeThreadInfo(PrintWriter pw, Thread thread, State state) {
-		pw.printf("Main : Id %d - %s\n", thread.getId(), thread.getName());
-		pw.printf("Main : Priority: %d\n", thread.getPriority());
-		pw.printf("Main : Old State: %s\n", state);
-		pw.printf("Main : New State: %s\n", thread.getState());
-		pw.printf("Main : ************************************\n");
-	}
+//-------------------PARTE FINAL-------------------
 
+        //Imprimo asientos
+
+            r.imprimirMatriz();
+
+        //Imprimo estado de los asientos
+
+            r.imprimir();
+
+        //Imprimo la cantidad de reservas confirmadas y canceladas
+
+            lista.escribirLogLista();
+
+
+        // Imprimo la ocupación final del vuelo y el tiempo total del programa
+
+            lista.imprimirOcupacionFinal();
+
+            lista.printListas();
+    }
 }
