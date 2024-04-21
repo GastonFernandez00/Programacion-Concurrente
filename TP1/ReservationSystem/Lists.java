@@ -155,63 +155,13 @@ public class Lists {
             r.setChecked();
         }
     }
-
-    // Returns true if there are unchecked reservations
-    public boolean uncheckedExist(){
-        synchronized(confirmedKey){
-            for(Reserve r: confirmadas){
-                if(!r.getChecked()){
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
-
+    
 //---CANCELLED LIST METHODS---
-
-    /* 
-     * Returns a random cancelled reservation.
-     * The random reservation is removed from the list before being returned.
-     * 
-     * If there are no cancelled reservations, returns null
-     */
-    public Reserve getRandomCancelledReserve() {
-        synchronized(cancelledKey){
-            if (canceladas.isEmpty()) {
-                return null;
-            }
-            Random random = new Random();
-            int index = random.nextInt(canceladas.size());
-            return canceladas.remove(index);
-        }
-    }
 
     // Adds a reservation to the cancelled list
     public void addCancelledReserve(Reserve r){
         synchronized(cancelledKey){
             canceladas.add(r);
-        }
-    }
-
-    // Removes a reservation from the cancelled list
-    public void removeCancelledReserve(Reserve r){
-        synchronized(cancelledKey){
-            canceladas.remove(r);
-        }
-    }
-
-    // Returns true if the cancelled list is empty
-    public boolean isEmptyCancelled(){
-        synchronized(cancelledKey){
-            return canceladas.isEmpty();
-        }
-    }
-
-    // Prints the size of the cancelled list
-    public void printCancelledLength(){
-        synchronized(cancelledKey){
-            System.out.println("Canceladas: " + canceladas.size());
         }
     }
 
@@ -221,13 +171,6 @@ public class Lists {
     public void addVerifiedReserve(Reserve r){
         synchronized(verifiedKey){
             verificadas.add(r);
-        }
-    }
-
-    // Prints the size of the verified list
-    public void printVerifiedLength(){
-        synchronized(verifiedKey){
-            System.out.println("Verificadas: " + verificadas.size());
         }
     }
 }

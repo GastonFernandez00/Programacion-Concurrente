@@ -1,12 +1,18 @@
 package ReservationSystem;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class Log {
     
     private int reservasCanceladas;
     private int reservasAprobadas;
     private long tiempoInicioOriginal; // Time for the start of the program
     private long tiempoInicio; // Time from the last log write
-
+    private List<Long> times;
     /*
      * Log constructor 
      * Initializes the variables
@@ -15,9 +21,10 @@ public class Log {
 
         tiempoInicio = System.currentTimeMillis();
         tiempoInicioOriginal = tiempoInicio;
+        times = new ArrayList<>();
         reservasCanceladas = 0;
         reservasAprobadas = 0;
-
+        createLog();
         System.out.println("Inicio del programa\n");
 
     }
@@ -39,6 +46,7 @@ public class Log {
         long tiempoActual = System.currentTimeMillis();
         if (tiempoActual - tiempoInicio >= 200) {
 
+            times.add(tiempoActual - tiempoInicio);
             System.out.println("\n");
             System.out.println("Reservas canceladas: " + reservasCanceladas + "\n");
             System.out.println("Reservas aprobadas: " + reservasAprobadas + "\n");
@@ -51,9 +59,49 @@ public class Log {
     // Prints the final amount of taken seats and the total time of the program
     public void printFinalTakenSeats(int ocupacionFinal) {
 
-        System.out.println("Ocupación final del vuelo: " + ocupacionFinal + " asientos ocupados\n");
+        System.out.println("\nOcupación final del vuelo: " + ocupacionFinal + " asientos ocupados\n");
         long tiempoTotal = System.currentTimeMillis() - tiempoInicioOriginal;
         System.out.println("Tiempo total del programa: " + tiempoTotal + " milisegundos\n");
 
+        try {
+            FileWriter fileWriter = new FileWriter("log.txt", true);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.println("Ocupacion final del vuelo: " + ocupacionFinal + " asientos ocupados");
+            printWriter.println("Reservas Canceladas: "+reservasCanceladas);
+            printWriter.println("Reservas Aprobadas: "+reservasAprobadas);
+            printWriter.println("Tiempos entre logs en [ms]: ");
+            for (Long l : times) { printWriter.print(l+" ");};
+            printWriter.println("\nTiempo total de ejecucion: "+tiempoTotal+"[ms]");
+            printWriter.println("------------------------------------");
+            printWriter.close();
+
+        }catch (IOException e) {
+            System.err.println("Error al escribir en el archivo de log: " + e.getMessage());
+        }
+
     }
+    
+    public void escribirLog(String informacion) {
+        try {
+            FileWriter fileWriter = new FileWriter("log.txt", true);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.println(informacion);
+            printWriter.close();
+            System.out.println("Información escrita en el archivo de log.");
+        } catch (IOException e) {
+            System.err.println("Error al escribir en el archivo de log: " + e.getMessage());
+        }
+    }
+
+    private void createLog(){
+        try {
+            FileWriter fileWriter = new FileWriter("log.txt", true); // El segundo parámetro true indica que se añadirá al archivo existente si está presente
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.close();
+            System.out.println("Archivo de log creado exitosamente: " + "log");
+        } catch (IOException e) {
+            System.err.println("Error al crear el archivo de log: " + e.getMessage());
+        }
+    }
+
 }
