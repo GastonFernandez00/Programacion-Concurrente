@@ -12,7 +12,7 @@ public class Log {
     private int reservasAprobadas;
     private long tiempoInicioOriginal; // Time for the start of the program
     private long tiempoInicio; // Time from the last log write
-    private List<Long> times;
+    private List<Integer[]> times;
     /*
      * Log constructor 
      * Initializes the variables
@@ -45,8 +45,8 @@ public class Log {
     public void writeLog() {
         long tiempoActual = System.currentTimeMillis();
         if (tiempoActual - tiempoInicio >= 200) {
-
-            times.add(tiempoActual - tiempoInicio);
+            Integer[] valores = new Integer[]{(int)(tiempoActual - tiempoInicio), reservasCanceladas, reservasAprobadas};
+            times.add(valores);
             System.out.println("\n");
             System.out.println("Reservas canceladas: " + reservasCanceladas + "\n");
             System.out.println("Reservas aprobadas: " + reservasAprobadas + "\n");
@@ -69,8 +69,8 @@ public class Log {
             printWriter.println("Ocupacion final del vuelo: " + ocupacionFinal + " asientos ocupados");
             printWriter.println("Reservas Canceladas: "+reservasCanceladas);
             printWriter.println("Reservas Aprobadas: "+reservasAprobadas);
-            printWriter.println("Tiempos entre logs en [ms]: ");
-            for (Long l : times) { printWriter.print(l+" ");};
+            printWriter.println("Tiempos entre logs - Canceladas - Aprobadas");
+            for (Integer[] l : times) { printWriter.println(l[0]+"      "+l[1]+"        "+l[2]);};
             printWriter.println("\nTiempo total de ejecucion: "+tiempoTotal+"[ms]");
             printWriter.println("------------------------------------");
             printWriter.close();
@@ -81,19 +81,7 @@ public class Log {
 
     }
     
-    public void escribirLog(String informacion) {
-        try {
-            FileWriter fileWriter = new FileWriter("log.txt", true);
-            PrintWriter printWriter = new PrintWriter(fileWriter);
-            printWriter.println(informacion);
-            printWriter.close();
-            System.out.println("Información escrita en el archivo de log.");
-        } catch (IOException e) {
-            System.err.println("Error al escribir en el archivo de log: " + e.getMessage());
-        }
-    }
-
-    private void createLog(){
+private void createLog(){
         try {
             FileWriter fileWriter = new FileWriter("log.txt", true); // El segundo parámetro true indica que se añadirá al archivo existente si está presente
             PrintWriter printWriter = new PrintWriter(fileWriter);
