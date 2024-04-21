@@ -2,51 +2,82 @@
  * se encuentra LIBRE 
  */
 
-import java.util.Random;
-import java.util.List;
-import java.util.ArrayList;
-
 public class Reservacion implements Runnable {
-    private Reservas reserva;
     private Avion matriz;
-    private List<Reservas> pendientes;
+    private Listas pendientes;
 
-    public Reservacion(Reservas reserva){
-        this.reserva = reserva;
-        pendientes = new ArrayList<>();
+    public Reservacion(Listas pendientes){
+        this.pendientes = pendientes;
+        matriz = new Avion();
     }
 
     public void run(){
-
-        Asiento[][] asientos= matriz.getMatriz();
-        Random random = new Random();
-
-        while (true) {
+        while (!matriz.estaLleno()) {
             // Generar un asiento aleatorio
-            int fila = random.nextInt(asientos.length);
-            int columna = random.nextInt(asientos[0].length);
-            Asiento asiento = asientos[fila][columna];
+            Asiento a = matriz.getAsientoAleatorio();
+            Integer estado = a.getEstadoNumerico();
 
             // Verificar si el asiento está disponible
-            if (asiento.getEstado() == "LIBRE") {
-                    // Marcar el asiento como reservado
-                    asiento.cambiarEstado(Asiento.RESERVADO);
-                    // Registrar la reserva pendiente
-                    reserva.setEstado(Reservas.PENDIENTE);
-                    reserva.setPosAsieto(asiento.getAsiento());
-                    setPendientes(reserva);
-                    System.out.println(Thread.currentThread().getName() + " reservó el asiento " + asiento.getAsiento());
-                    break; // Salir del bucle una vez reservado el asiento
+            if (estado == Asiento.LIBRE){
+                Reservas reserva = new Reservas(a);
+                // Marcar el asiento como reservado
+                matriz.cambiarEstado(a.getAsiento(), Asiento.OCUPADO);
+                // Registrar la reserva pendiente
+                reserva.setEstado(Reservas.PENDIENTE);
+                //reserva.setPosAsiento(a.getAsiento());
+                pendientes.addPendientes(reserva);
+                System.out.println(Thread.currentThread().getName() + " reservó el asiento " + a.getAsiento());
+                //break; // Salir del bucle una vez reservado el asiento
             }
-            
+            try{
+                Thread.sleep(100);
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        System.out.println(Thread.currentThread().getName() + " Terminó su ejecución");   
     }
 
-    public synchronized void setPendientes(Reservas reserva){
-        pendientes.add(reserva);
+    public void imprimir(){
+        matriz.printEstadoAsientos();
     }
 
-    public List<Reservas> getPendientes(){
-        return pendientes;
+    public void imprimirMatriz(){
+        matriz.printAsientos();
     }
+
+
+    public static void main(String[] args) {
+        Listas pendientes = new Listas();
+        Reservacion r = new Reservacion(pendientes);
+        
+        Thread t1 = new Thread(r);
+        Thread t2 = new Thread(r);
+        Thread t3 = new Thread(r);
+        
+        t1.start();
+        t2.start();
+        t3.start();
+
+        try {
+            t1.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        try {
+            t2.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        try {
+            t3.join();
+        }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        r.imprimir();
+        
+       
+    }
+    
 }
