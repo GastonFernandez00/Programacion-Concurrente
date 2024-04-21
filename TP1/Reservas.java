@@ -10,17 +10,23 @@ public class Reservas {
     private String posicion_asiento;
     private Integer estado;
     private boolean checked;
+    private Asiento asiento;
 
-    public Reservas(){}
-
+    public Reservas(Asiento a){
+        asiento = a;
+        this.checked = false;
+        posicion_asiento = a.getAsiento();
+    }
+/*
     public Reservas(String posicion_asiento, Integer estado){
-        this.posicion_asiento = posicion_asiento;
+        asiento = new Asiento(posicion_asiento);
+        //this.posicion_asiento = posicion_asiento;
         this.estado = estado;
         this.checked = false;
     }
-
-    public void setPosAsieto(String numero){
-        posicion_asiento = numero;
+*/
+    public void setPosAsiento(String numero){
+        posicion_asiento = numero; 
     }
 
     /*Los estados posibles son: - PENDIENTE DE PAGO
@@ -28,12 +34,16 @@ public class Reservas {
                                 - CANCELADO
                                 - VERIFICADO 
     */
-    public void setEstado(Integer estado){
+    public synchronized void setEstado(Integer estado){
         this.estado = estado;
     }
 
-    public void setCheked(boolean cheked){
-        this.checked = cheked;
+    public synchronized void setEstadoAsiento(Integer E){
+        asiento.cambiarEstado(E);
+    }
+
+    public void setCheked(){
+        this.checked = true;
     }
 
     public String getPosAsiento(){
@@ -47,4 +57,5 @@ public class Reservas {
     public boolean getChecked(){
         return checked;
     }
+    
 }
