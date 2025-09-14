@@ -1,0 +1,17 @@
+name: Run Tests
+
+on:
+  pull_request:
+    branches: [ "main", "dev" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run tests
+        run: |
+          cd TP2
+          gradle test jacocoTestCoverageVerification

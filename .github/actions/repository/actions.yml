@@ -1,0 +1,16 @@
+name: Branch Format Check
+
+on:
+  push:
+    branches-ignore: [ "main", "dev" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Branch Format Check
+        run: |
+          ./.extras/hooks/prepare-commit-msg

@@ -1,0 +1,18 @@
+name: Spelling Check
+
+on:
+  pull_request:
+    branches: [ "main", "dev" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run cspell
+        run: |
+          docker build -t cspell -f ./.extras/Dockerfile/cspell.dockerfile .
+          bash -c 'shopt -s globstar; docker run --rm -v "$PWD":/app cspell -c TP2/.cspell.json --file TP2/**/*.java'
+          bash -c 'shopt -s globstar; docker run --rm -v "$PWD":/app cspell -c TP2/.cspell.json --file TP2/**/*.md'

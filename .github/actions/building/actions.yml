@@ -1,0 +1,17 @@
+name: Project Building
+
+on:
+  pull_request:
+    branches: [ "main", "dev" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Project Build
+        run: |
+          cd TP2
+          gradle build
