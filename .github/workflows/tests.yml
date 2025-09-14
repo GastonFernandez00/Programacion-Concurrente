@@ -1,6 +1,7 @@
-name: Style Check
+name: Run Tests
 
 on:
+  workflow_call:
   pull_request:
     branches: [ "main", "dev" ]
 
@@ -11,8 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run style checking
+      - name: Run tests
         run: |
           cd TP2
-          gradle spotlessCheck
-
+          gradle test jacocoTestCoverageVerification
