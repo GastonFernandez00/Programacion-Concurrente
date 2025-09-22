@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+shopt -s globstar
+
+cd TP2
+
+echo -e "\n------------------------------\n"
+echo -e "Running spell checkers"
+echo -e "\n------------------------------\n"
+docker run --rm -v "$PWD":/app cspell -c /app/.cspell.json --file **/*.java
+docker run --rm -v "$PWD":/app cspell -c .cspell.json --file **/*.md
+
+echo -e "\n------------------------------\n"
+echo -e "Runnig Style Checker"
+echo -e "\n------------------------------\n"
+./gradlew spotlessCheck
+
+echo -e "\n------------------------------\n"
+echo -e "Runnig Tests"
+echo -e "\n------------------------------\n"
+./gradlew clean test jacocoTestCoverageVerification
+
