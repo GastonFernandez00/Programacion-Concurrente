@@ -14,7 +14,7 @@ There are 2 `bash` files inside `root/.extras/` (`root` is whatever name the mai
 -  `setup_cspell_docker.sh`:
 	- Builds the CSpell docker image.
 
-Execute this files from the root directory.
+Execute these files from the root directory.
 - `./.extras/<file>.sh`
 
 # Tools used.
