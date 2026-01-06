@@ -1,4 +1,4 @@
-# Requeriments.
+# Requirements.
 ---
 * `Docker` for running the containerized version of `CSpell`
 
@@ -61,7 +61,7 @@ Commits and branches use a specific format.
 - Commits: `ISSUE-<number>: <Description>`
 - Branches: `(feature|fix)/ISSUE-<number>-<Description>`
 
-These are checked before commiting.
+These are checked before committing.
 
 ## Coding
 ---

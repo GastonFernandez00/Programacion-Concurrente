@@ -1,4 +1,4 @@
-# Requeriments.
+# Requirements.
 ---
 - Java 21 or higher.
 
