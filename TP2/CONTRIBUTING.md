@@ -50,10 +50,10 @@ Extras:
 ---
 ## PR
 ---
-To be approved, PR need:
-* Review by 2 out of 4.
-* Pipeline must succeed.
-* Must be linked to an ISSUE ticket.
+To be approved, PRs need:
+* To be reviewed by 2 out of 4.
+* The pipeline must succeed.
+* To be linked to an ISSUE ticket that previously explained the work to be done.
 
 ## Commits - Branches
 ---
