@@ -25,6 +25,9 @@ jobs:
       - name: Run style checking
         run: |
           cd TP2
+          wget https://github.com/llvm/llvm-project/releases/download/llvmorg-21.1.7/LLVM-21.1.7-Linux-X64.tar.xz
+          tar -xf LLVM-21.1.7-Linux-X64.tar.xz
+          ln -s LLVM-21.1.7-Linux-X64/bin/clang-format /usr/bin/clang-format
           gradle spotlessCheck
 
       - name: Run tests
