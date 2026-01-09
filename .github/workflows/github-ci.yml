@@ -24,11 +24,11 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run style checking
         run: |
-          cd TP2
-          sudo rm -rf /usr/bin/clang-format || echo
+          sudo rm -rf /usr/bin/clang-format || echo "No /usr/bin/clang-format present"
           wget https://github.com/llvm/llvm-project/releases/download/llvmorg-21.1.7/LLVM-21.1.7-Linux-X64.tar.xz
           tar -xf LLVM-21.1.7-Linux-X64.tar.xz
-          ln -s LLVM-21.1.7-Linux-X64/bin/clang-format /usr/bin/clang-format
+          sudo ln -s LLVM-21.1.7-Linux-X64/bin/clang-format /usr/bin/clang-format
+          cd TP2
           gradle spotlessCheck
 
       - name: Run tests
