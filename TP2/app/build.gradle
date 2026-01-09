@@ -42,7 +42,7 @@ jacocoTestCoverageVerification {
 
 spotless {
     java {
-        clangFormat('18.1.3').style("Microsoft")  // uses .clang-format
+        clangFormat('21.1.7').style("Microsoft")  // uses .clang-format
     }
 }
 

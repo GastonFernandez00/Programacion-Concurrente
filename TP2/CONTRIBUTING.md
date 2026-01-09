@@ -1,6 +1,7 @@
 # Requirements.
 ---
 * `Docker` for running the containerized version of `CSpell`
+* `clang-format {21.1.7}` for code formatting.
 
 # Setup.
 ---
@@ -27,10 +28,10 @@ Execute these files from the root directory.
 Gradle has many options, all of them executed through `./gradlew <option>`.  A list of them can be seen through the `tasks` option.
 
 The ones we're interested in are:
--  `build`: To build the project, without executing it.
--  `run`: To build and run the project.
--  `test jacocoTestReport`: Applies code formatting steps to sourcecode in-place.
--  `test jacocoTestCoverageVerification`: Applies code formatting steps to sourcecode in-place.
+-  `build`: Assembles and tests this project.
+-  `run`: Runs this project as a JVM application
+-  `test jacocoTestReport`: Generates code coverage report for the test task.
+-  `test jacocoTestCoverageVerification`: Verifies code coverage metrics based on specified rules for the test task.
 -  `spotlessApply`: Applies code formatting steps to sourcecode in-place.
 -  `spotlessCheck`:  Checks that sourcecode satisfies formatting steps.
 
@@ -39,13 +40,14 @@ The ones we're interested in are:
 The `github-ci` will check for spelling mistakes in `.java` and `.md` files, so it's useful to be able to run this locally.
 
 CSpell is used through it's docker image. So, if run on the root directory, it should be executed like:
-`docker run --rm -v "$PWD":/app cspell -c TP2/.cspell.json --file TP2/**/*.java`
-`docker run --rm -v "$PWD":/app cspell -c TP2/.cspell.json --file TP2/**/*.md`
+`docker run --rm -v "$PWD":/app:Z cspell -c TP2/.cspell.json --file TP2/**/*.java`
+`docker run --rm -v "$PWD":/app:Z cspell -c TP2/.cspell.json --file TP2/**/*.md`
+(The `:Z` extra option if for Fedora, shouldn't be necessary for other distros)
 
 
 Extras:
--  If not on the root directory, replace`TP2/.cspell.json` for wherever there's a cspell configuration json file
-- This line `--file TP2/**/*.md` indicates what type of files will be checked (recursively), replace for any other type.
+-  If not on the root directory, replace `TP2/.cspell.json` for wherever there's a cspell configuration json file
+- This line `--file TP2/**/*.md` indicates what directory will be checked and which type of files will be checked (recursively). Replace for any other type if needed.
 # Repository rules
 ---
 ## PR
