@@ -14,6 +14,8 @@ docker run --rm -v "$PWD":/app:Z cspell -c /app/.cspell.json --file **/*.md
 echo -e "\n------------------------------\n"
 echo -e "Runnig Style Checker"
 echo -e "\n------------------------------\n"
+./gradlew checkstyleMain
+./gradlew checkstyleTest
 ./gradlew spotlessCheck
 
 echo -e "\n------------------------------\n"
