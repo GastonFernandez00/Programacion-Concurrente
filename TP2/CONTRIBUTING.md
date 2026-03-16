@@ -1,0 +1,88 @@
+# Requirements.
+---
+* `Docker` for running the containerized version of `CSpell`
+* `clang-format {21.1.7}` for code formatting.
+
+# Setup.
+---
+There are 2 `bash` files inside `root/.extras/` (`root` is whatever name the main directory was called)
+-  `setup_hook.sh`: 
+	- Copies 3 files into `.git/hooks/`. They are used for checking:
+	- Code: style, testing coverage, spelling.
+	- Commits messages format.
+	- Branches name format.
+
+-  `setup_cspell_docker.sh`:
+	- Builds the CSpell docker image.
+
+Execute these files from the root directory.
+- `./.extras/<file>.sh`
+
+# Tools used.
+---
+* [Gradle](https://gradle.org/) as its build system.
+* [CSpell](https://cspell.org/) for spell checking.
+
+## Use of Gradle
+---
+Gradle has many options, all of them executed through `./gradlew <option>`.  A list of them can be seen through the `tasks` option.
+
+The ones we're interested in are:
+-  `build`: Assembles and tests this project.
+-  `run`: Runs this project as a JVM application
+-  `test jacocoTestReport`: Generates code coverage report for the test task.
+-  `test jacocoTestCoverageVerification`: Verifies code coverage metrics based on specified rules for the test task.
+-  `spotlessApply`: Applies code formatting steps to sourcecode in-place.
+-  `spotlessCheck`:  Checks that sourcecode satisfies formatting steps.
+
+## Use of CSpell
+---
+The `github-ci` will check for spelling mistakes in `.java` and `.md` files, so it's useful to be able to run this locally.
+
+CSpell is used through it's docker image. So, if run on the root directory, it should be executed like:
+`docker run --rm -v "$PWD":/app:Z cspell -c TP2/.cspell.json --file TP2/**/*.java`
+`docker run --rm -v "$PWD":/app:Z cspell -c TP2/.cspell.json --file TP2/**/*.md`
+(The `:Z` extra option if for Fedora, shouldn't be necessary for other distros)
+
+
+Extras:
+-  If not on the root directory, replace `TP2/.cspell.json` for wherever there's a cspell configuration json file
+- This line `--file TP2/**/*.md` indicates what directory will be checked and which type of files will be checked (recursively). Replace for any other type if needed.
+# Repository rules
+---
+## PR
+---
+To be approved, PRs need:
+* To be reviewed by 2 out of 4.
+* The pipeline must succeed.
+* To be linked to an ISSUE ticket that previously explained the work to be done.
+
+## Commits - Branches
+---
+Commits and branches use a specific format.
+- Commits: `ISSUE-<number>: <Description>`
+- Branches: `(feature|fix)/ISSUE-<number>-<Description>`
+
+These are checked before committing.
+
+## Coding
+---
+Code must use Microsoft style
+```java
+public void foo()
+{
+	  // Code
+}
+```
+
+Use [Oracle's naming convention](https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html)
+```java
+	class ImageSprite();
+	Background getBackground();
+	int backgroundWidth;
+	int MAX_BACKGROUND_WIDTH = 4096;
+```
+
+## Testing Percentage
+---
+- Coverage >= 30%

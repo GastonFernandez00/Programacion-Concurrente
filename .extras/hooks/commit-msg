@@ -14,7 +14,7 @@ COMMIT_MSG_FILE="$1"
 COMMIT_MSG=$(head -n1 "$COMMIT_MSG_FILE")
 
 if ! echo "$COMMIT_MSG" | grep -qP "$PATTERN"; then
-  echo "  Commit message must start with 'ISSUE-<number>'. "
+  echo "  Commit message must start with 'ISSUE-<number>:'. "
   echo "  Example: ISSUE-1234: Fix broken link. "
   exit 1
 fi

@@ -25,7 +25,7 @@ jobs:
       - name: Run style checking
         run: |
           cd TP2
-          gradle spotlessCheck
+          gradle check
 
       - name: Run tests
         run: |

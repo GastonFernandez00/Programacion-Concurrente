@@ -1,16 +1,22 @@
 package org.example;
 
 /**
- * Main
+ * Main class.
  */
 public class Main
 {
 
+    /**
+     * Method that returns a string.
+     */
     public String returnStringForTest()
     {
         return "Preparing TP2";
     }
 
+    /**
+     * Main function.
+     */
     public static void main(String[] args)
     {
 
